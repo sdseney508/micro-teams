@@ -1,14 +1,14 @@
 const db = require('../config/connection');
 const { Users, Portfolios } = require('../models');
 
-const userData = require('./UserData.json');
+const userData = require('./userData.json');
 const portData = require('./portData.json');
 
 db.once('open', async () => {
   await Users.deleteMany({});
 
-  const technologies = await Tech.insertMany(techData);
-
-  console.log('Technologies seeded!');
+  const user = await Users.insertMany(userData);
+  const port= await Portfolios.insertMany(portData);
+  console.log('stuff seeded!');
   process.exit(0);
 });
