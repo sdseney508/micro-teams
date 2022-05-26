@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <title>Company Prospectus Test page</title>
+</head>
+<body>
+    <div>
+        <div class = "search-stock">
+            <h2>Search for a stock: </h2>
+            <input id="stock-found" class="form-control" type="text" placeholder="Enter stock name"></input>
+            <button class="search" id="apiBtn">SEARCH</button>
+        </div>
+
+        <div class="card hide" id="stock">
+            <p id="stockName">Name: </p>
+            <p id="high">High: </p>
+            <p id="close">Close: </p>
+        </div>
+    </div>
+
+    <script src="../company-prospectus/searchStock.js"></script>
+</body>
+</html>
