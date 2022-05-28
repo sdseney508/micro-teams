@@ -26,3 +26,28 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
+
+// typeDef translation for models, one for Query, mutations TBD
+
+/*
+  type User {
+    _id: ID!
+    email: String!
+    password: String!
+    api: String!
+  }
+
+
+  type Portfolio {
+    _id: ID!
+    portfolioName: String!
+    stocks: [String!]
+    dataAdded: Date
+    purchasePrice: float!
+  }
+
+  type Ouery {
+    me: [User]
+  }
+
+*/

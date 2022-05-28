@@ -27,3 +27,30 @@ const resolvers = {
 };
 
 module.exports = resolvers;
+
+
+/*
+  const resolvers = {
+    Query: {
+      me: async (parent, args, context) => {
+        if (context.user) {
+          const userDate = await User.findOne({_id: context.user_id})
+          .select('.__v -password');
+          console.log(userData);
+          return userData;
+        }
+        throw new AuthernticationError("You must be logged in to create a portfolio!")
+      }
+
+      Mutations: {
+
+        addPortfolio: async (parent, args) => {}
+        login: async (parent, {email, password}) => {
+          const user = await User.findOne({email});
+          if (!user)
+        }
+      }
+    }
+  }
+
+*/
