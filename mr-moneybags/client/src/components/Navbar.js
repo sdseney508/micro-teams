@@ -20,8 +20,7 @@ const AppNavbar = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ml-auto">
-              {/* if user is logged in show saved books and logout UNCOMMENT NEXT LINE FOR AUTH */}
-              {/* {Auth.loggedIn() ? ( */}
+              {Auth.loggedIn() ? (
                 <>
                   <NavDropdown title="Your Portfolios" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">
@@ -39,8 +38,7 @@ const AppNavbar = () => {
                   </NavDropdown>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
-                {/* UNCOMMENT NEXT LINE FOR AUTH CAPABILITY */}
-              {/* ) : ( */}
+              ) : (
                 <Nav.Link onClick={() => setShowModal(true)}>
                   Login/Sign Up
                 </Nav.Link>
