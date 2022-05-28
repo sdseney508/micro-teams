@@ -6,7 +6,8 @@ import { Container } from 'react-bootstrap';
 
 const Prospectus = () => {
   return (
-      <Container>
+    <>
+     <Container>
          <div class="bg-light p-5 rounded-lg m-3">
             <h1 class="display-4">Company Prospectus</h1>
             <p class="lead">shows a stock's company prospectus (overview, fundamentals, company news)</p>
@@ -15,6 +16,12 @@ const Prospectus = () => {
         </div>
 
       </Container>
+
+      <Container>
+        {/* add in fundamentals here. */}
+      </Container>
+    
+    </>
     
   );
 };

@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap';
 
 const ViewPort = () => {
   return (
+    <>
       <Container>
           <div class="bg-light p-5 rounded-lg m-3">
             <h1 class="display-4">View a Portfolio</h1>
@@ -15,6 +16,13 @@ const ViewPort = () => {
         </div>
          
       </Container>
+
+      <Container>
+        {/* table goes here */}
+      </Container>
+    
+    </>
+    
     
   );
 };

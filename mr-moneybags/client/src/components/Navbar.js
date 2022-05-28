@@ -22,6 +22,9 @@ const AppNavbar = () => {
             <Nav className="ml-auto">
               {Auth.loggedIn() ? (
                 <>
+                  <Nav.Link as={Link} to='/user'>
+                    My Profile
+                  </Nav.Link>
                   <NavDropdown title="Your Portfolios" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">
                       portfolio 1
