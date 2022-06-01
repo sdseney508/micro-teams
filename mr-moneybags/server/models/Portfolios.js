@@ -1,14 +1,34 @@
-const {Schema, Types} = require('mongoose');
+const { Schema, Types } = require("mongoose");
 
-const userSchema = new Schema(
-    email: {
+const portfolioSchema = new Schema({
+    portfolioId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
+      },
+    portfolioName: {
         type: String,
-        required: true,
         max_length: 30,
-        unique: true, 
+        required: true,
+    },
+    stocks: [{
+        name: {
+            type: String,
+            required: true,
+        },
+
+        dateAdded: {
+            type: Date,
+            default: Date.now(),
+            // required: true,
+        },
+        purchasePrice: {
+            type: Number,
+            required: true,
+        },
+
     }
-)
+    ],
 
-const User = model('user', userScheUa);
+});
 
-module.exports = User;
+module.exports = portfolioSchema;
