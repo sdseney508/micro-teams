@@ -1,53 +1,60 @@
 const { gql } = require('@apollo/client');
 
 const typeDefs = gql`
-  type Tech {
-    _id: ID!
-    name: String!
-  }
 
-  type Matchup {
-    _id: ID!
-    tech1: String!
-    tech2: String!
-    tech1_votes: Int
-    tech2_votes: Int
+type User {
+  _id: ID
+  email: String!
+  portfolios: [Porfolio]
+}
+
+// TODO: aren't portfolio and stock super duplicitious here? Took a stab at this with the powerpoint info. 
+
+type Portfolio {
+  _id: ID
+  stock: String!
+  shares: Int!
+  addedDate: Date()
+  purchasePrice: Float!
+  currentPrice: Float!
+  dailyPerf: Float!
+  YTD: Float!
+  %Change: Float!
+  %ofPortfolio: Float!
+}
+
+// this is the data we get from the API:
+
+type Stock {  
+  symbol: String!
+  addedDate: Date()
+  purchasePrice: Float!
+  currentPrice: Float!
+  dayHigh: Float!
+  dayLow: Float!
+  52WeekHigh: Float!
+  52WeekLow: Float!
+  stockYTD: Float! 
+  sinceCreated: Float!
+
+}
+
+
+  type Auth {
+    token: ID!
+    user: User
   }
 
   type Query {
-    tech: [Tech]
-    matchups(_id: String): [Matchup]
+  me: User
+  users: [User]
   }
 
   type Mutation {
-    createMatchup(tech1: String!, tech2: String!): Matchup
-    createVote(_id: String!, techNum: Int!): Matchup
+    addUser( email: String!, password: String!): Auth
+    loginUser(email: String!, password: String!): Auth
+
   }
 `;
 
 module.exports = typeDefs;
-
-// typeDef translation for models, one for Query, mutations TBD
-
-/*
-  type User {
-    _id: ID!
-    email: String!
-    password: String!
-    api: String!
-  }
-
-
-  type Portfolio {
-    _id: ID!
-    portfolioName: String!
-    stocks: [String!]
-    dataAdded: Date
-    purchasePrice: float!
-  }
-
-  type Ouery {
-    me: [User]
-  }
-
-*/
