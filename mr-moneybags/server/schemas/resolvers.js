@@ -1,28 +1,47 @@
-const { Tech, Matchup } = require('../models');
+const { AuthenticationError } = require('@apollo/client');
+const { Users } = require('../models');
+const { signToken } = require('../utils/auth');
+
+//TODO: this is all new code. the goal here is to fill in the needed gaps for the Auth to work. please look it over. 
 
 const resolvers = {
   Query: {
-    tech: async () => {
-      return Tech.find({});
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('portfolios');
+      }
+      throw new AuthenticationError('You must be logged in!');
     },
-    matchups: async (parent, { _id }) => {
-      const params = _id ? { _id } : {};
-      return Matchup.find(params);
-    },
+    users: async (parent, args) => {
+      return await User.find();
+    }
+   
   },
+
+  
   Mutation: {
-    createMatchup: async (parent, args) => {
-      const matchup = await Matchup.create(args);
-      return matchup;
+    addUser: async (parent, { email, password }) => {
+      const user = await Users.create({ email, password });
+      const token = signToken(user);
+      return { token, user };
     },
-    createVote: async (parent, { _id, techNum }) => {
-      const vote = await Matchup.findOneAndUpdate(
-        { _id },
-        { $inc: { [`tech${techNum}_votes`]: 1 } },
-        { new: true }
-      );
-      return vote;
-    },
+    login: async (parent, { email, password }) => {
+      const user = await Users.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Incorrect email or password.');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect email or password.');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    }
   },
 };
 
