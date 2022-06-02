@@ -1,5 +1,6 @@
-const { Schema, Types } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 
+// Changes made: Turned portfolioSchema into Portfolios model
 const portfolioSchema = new Schema({
     portfolioId: {
         type: Schema.Types.ObjectId,
@@ -31,4 +32,5 @@ const portfolioSchema = new Schema({
 
 });
 
-module.exports = portfolioSchema;
+const Portfolios = model('portfolios', portfolioSchema)
+module.exports = Portfolios;
