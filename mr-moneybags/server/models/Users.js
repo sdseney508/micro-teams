@@ -1,8 +1,7 @@
 const {Schema, model} = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const portfolioSchema = require('./Portfolios');
-
+// Added syntax changes for new Portfolios model
 const userSchema = new Schema(
     {
       email: {
@@ -22,7 +21,12 @@ const userSchema = new Schema(
           required: true,
       },
    
-      portfolios: [portfolioSchema],
+      portfolios: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'portfolios'
+        }
+      ],
     },
     // set this to use virtual below
     {
