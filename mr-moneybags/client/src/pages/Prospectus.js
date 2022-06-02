@@ -2,9 +2,10 @@
 
 
 import React from "react";
+import StockTable from '../components/tables.js';
 import { Container } from 'react-bootstrap';
 
-const Prospectus = () => {
+function Prospectus() {
   return (
     <>
      <Container>
@@ -18,7 +19,7 @@ const Prospectus = () => {
       </Container>
 
       <Container>
-        {/* add in fundamentals here. */}
+        <StockTable />
       </Container>
     
     </>

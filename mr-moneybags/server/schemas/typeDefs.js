@@ -5,35 +5,34 @@ const typeDefs = gql`
 type User {
   _id: ID
   email: String!
-  portfolios: [Porfolio]
+  portfolios: [Portfolio]
 }
 
-// TODO: aren't portfolio and stock super duplicitious here? Took a stab at this with the powerpoint info. 
 
 type Portfolio {
   _id: ID
   stock: String!
   shares: Int!
-  addedDate: Date()
+  addedDate: String!
   purchasePrice: Float!
   currentPrice: Float!
   dailyPerf: Float!
   YTD: Float!
-  %Change: Float!
-  %ofPortfolio: Float!
+  percChange: Float!
+  percofPortfolio: Float!
 }
 
-// this is the data we get from the API:
+
 
 type Stock {  
   symbol: String!
-  addedDate: Date()
+  addedDate: String!
   purchasePrice: Float!
   currentPrice: Float!
   dayHigh: Float!
   dayLow: Float!
-  52WeekHigh: Float!
-  52WeekLow: Float!
+  YearHigh: Float!
+  YearLow: Float!
   stockYTD: Float! 
   sinceCreated: Float!
 
@@ -52,7 +51,7 @@ type Stock {
 
   type Mutation {
     addUser( email: String!, password: String!): Auth
-    loginUser(email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
 
   }
 `;
