@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers
 });
 
 app.use(express.urlencoded({ extended: false }));
