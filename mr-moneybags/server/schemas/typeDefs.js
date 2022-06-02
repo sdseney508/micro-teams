@@ -6,37 +6,34 @@ const { gql } = require('@apollo/client');
 const typeDefs = gql`
 
   type User {
-    _id: ID
+    _id: ID!
     email: String!
-    portfolios: [Porfolio]
+    portfolios: [Portfolio]
   }
 
   type Portfolio {
-    _id: ID
+    portfolioId: ID!
     portfolioName: String!
     stock: Stock!
     shares: Int!
     dailyPerf: Float!
-    %Change: Float!
-    %ofPortfolio: Float!
+    percChange: Float!
+    percofPortfolio: Float!
   }
-
-  // this is the data we get from the API:
 
   type Stock {  
     symbol: String!
-    addedDate: Date()
+    addedDate: String!
     purchasePrice: Float!
     currentPrice: Float!
     dayHigh: Float!
     dayLow: Float!
-    52WeekHigh: Float!
-    52WeekLow: Float!
+    YearHigh: Float!
+    YearLow: Float!
     stockYTD: Float! 
     sinceCreated: Float!
 
   }
-
 
   type Auth {
     token: ID!
