@@ -11,6 +11,10 @@ const portfolioSchema = new Schema({
         max_length: 30,
         required: true,
     },
+    createdDate: {
+        type: Date,
+        default: Date.now(),
+    },
     stocks: [{
         name: {
             type: String,
@@ -26,6 +30,10 @@ const portfolioSchema = new Schema({
             type: Number,
             required: true,
         },
+        shares: {
+            type: Number,   
+            required: true,
+        }
 
     }
     ],

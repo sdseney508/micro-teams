@@ -9,6 +9,7 @@ db.once("open", async () => {
   await Users.deleteMany({});
 
   const users = [];
+  const portfolios = [];
 
   for (let i = 0; i < 2; i++) {
     let email = getEmail();
@@ -16,11 +17,12 @@ db.once("open", async () => {
 
     console.log(portfolios);
 
+    const newportfolios = await Portfolios.create(portfolios);
     users.push({
       email,
       password,
       apiKey,
-      portfolios,
+      portfolios: [newportfolios.portfolioId],
     });
   }
   console.log(users);
