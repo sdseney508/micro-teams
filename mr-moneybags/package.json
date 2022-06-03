@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "",
   "main": "server/server.js",
-
   "scripts": {
     "start": "node server/server.js",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
@@ -21,6 +20,8 @@
     "bcrypt": "^5.0.1",
     "express": "^4.18.1",
     "graphql": "^16.5.0",
-    "mongoose": "^6.3.4"
+    "mongoose": "^6.3.4",
+    "react": "^18.1.0",
+    "react-bootstrap": "^2.4.0"
   }
 }

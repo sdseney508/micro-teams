@@ -12,7 +12,7 @@ const typeDefs = gql`
   }
 
   type Portfolio {
-    portfolioId: ID!
+    portfolioId: String!
     portfolioName: String!
     stock: Stock!
     shares: Int!
@@ -51,7 +51,7 @@ const typeDefs = gql`
     addUser( email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth
     addPortfolio(portfolioName: String!): User
-    deletePortfolio(portfolioId: _id): User
+    deletePortfolio(portfolioId: String!): User
     login(email: String!, password: String!): Auth
 
   }

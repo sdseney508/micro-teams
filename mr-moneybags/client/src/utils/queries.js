@@ -8,7 +8,7 @@ export const QUERY_ME = gql`
             _id
             email
             portfolios {
-                _id
+                portfolioId
                 portfolioName
                 shares
                 dailyPerf
@@ -35,7 +35,7 @@ export const QUERY_ME = gql`
 export const QUERY_PORTFOLIOS = gql`
     query portfolio($portfolioId: ID) {
         portfolio(portfolioId: $portfolioId) {
-            _id
+            portfolioId
             portfolioName
             shares
             dailyPerf
@@ -62,7 +62,7 @@ export const QUERY_PORTFOLIOS = gql`
 export const QUERY_SINGLE_PORTFOLIO = gql`
     query getPortfolios {
         portfolios {
-            _id
+            portfolioId
             portfolioName
             shares
             dailyPerf

@@ -19,6 +19,7 @@ export const ADD_USER = gql`
             user {
                 _id
                 email
+                portfolios
             }
         }
     }
@@ -27,12 +28,12 @@ export const ADD_USER = gql`
 export const ADD_PORTFOLIO = gql`
     mutation addPortfolio($portfolioName: String!) {
         addPortfolio(portfolioName: $portfolioName) {
-            _id
+            portfolioId
             portfolioName
-            shares
+            stock
             dailyPerf
-            %Change
-            %ofPortfolio
+            percChange
+            percofPortfolio
             stock {
                 symbol
                 addedDate
@@ -40,8 +41,8 @@ export const ADD_PORTFOLIO = gql`
                 currentPrice
                 dayHigh
                 dayLow
-                52WeekHigh
-                52WeekLow
+                YearHigh
+                YearLow
                 stockYTD 
                 sinceCreated
             }
