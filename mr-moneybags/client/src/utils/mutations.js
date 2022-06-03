@@ -27,12 +27,12 @@ export const ADD_USER = gql`
 export const ADD_PORTFOLIO = gql`
     mutation addPortfolio($portfolioName: String!) {
         addPortfolio(portfolioName: $portfolioName) {
-            _id
+            portfolioId
             portfolioName
             shares
             dailyPerf
-            %Change
-            %ofPortfolio
+            percChange
+            percofPortfolio
             stock {
                 symbol
                 addedDate
@@ -40,11 +40,37 @@ export const ADD_PORTFOLIO = gql`
                 currentPrice
                 dayHigh
                 dayLow
-                52WeekHigh
-                52WeekLow
+                YearHigh
+                YearLow
                 stockYTD 
                 sinceCreated
             }
         }
     }
+`;
+
+export const QUERY_DELETE_PORTFOLIO = gql`
+    query deletePortfolio($porfolioId: ID) {
+        deletePortfolio(portfolioId: $portfolioId) {
+            portfolioId
+            portfolioName
+            shares
+            dailyPerf
+            percChange
+            percofPortfolio
+            stock {
+                symbol
+                addedDate
+                purchasePrice
+                currentPrice
+                dayHigh
+                dayLow
+                YearHigh
+                YearLow
+                stockYTD 
+                sinceCreated
+            }
+        }
+    }
+
 `

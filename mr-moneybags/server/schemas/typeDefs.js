@@ -12,7 +12,7 @@ const typeDefs = gql`
   }
 
   type Portfolio {
-    portfolioId: ID!
+    portfolioId: String!
     portfolioName: String!
     stock: Stock!
     shares: Int!
@@ -42,18 +42,16 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    portfolios(portfolioName: String): [Portfolio]
-    portfolio (portfolioId: ID!): Portfolio
+    getPortfolios(portfolioName: String!): [Portfolio]
+    getPortfolio(portfolioId: String!): Portfolio
 
   }
 
   type Mutation {
     addUser( email: String!, password: String!): Auth
-    loginUser(email: String!, password: String!): Auth
     addPortfolio(portfolioName: String!): User
-    deletePortfolio(portfolioId: _id): User
+    deletePortfolio(portfolioId: String!): User
     login(email: String!, password: String!): Auth
-
   }
 `;
 

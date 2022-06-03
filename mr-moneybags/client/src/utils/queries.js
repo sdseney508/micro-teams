@@ -8,12 +8,12 @@ export const QUERY_ME = gql`
             _id
             email
             portfolios {
-                _id
+                portfolioId
                 portfolioName
                 shares
                 dailyPerf
-                %Change
-                %ofPortfolio
+                percChange
+                percofPortfolio
                 stock {
                     symbol
                     addedDate
@@ -21,8 +21,8 @@ export const QUERY_ME = gql`
                     currentPrice
                     dayHigh
                     dayLow
-                    52WeekHigh
-                    52WeekLow
+                    YearHigh
+                    YearLow
                     stockYTD 
                     sinceCreated
                 }
@@ -33,14 +33,14 @@ export const QUERY_ME = gql`
 
 // Query for ALL portfolios
 export const QUERY_PORTFOLIOS = gql`
-    query portfolio($portfolioId: ID) {
-        portfolio(portfolioId: $portfolioId) {
-            _id
+    query getPortfolios($portfolioId: String!) {
+        getPortfolios(portfolioId: $portfolioId) {
+            portfolioId
             portfolioName
             shares
             dailyPerf
-            %Change
-            %ofPortfolio
+            percChange
+            percofPortfolio
             stock {
                 symbol
                 addedDate
@@ -48,8 +48,8 @@ export const QUERY_PORTFOLIOS = gql`
                 currentPrice
                 dayHigh
                 dayLow
-                52WeekHigh
-                52WeekLow
+                YearHigh
+                YearLow
                 stockYTD 
                 sinceCreated
             }
@@ -60,14 +60,14 @@ export const QUERY_PORTFOLIOS = gql`
 
 // Query for a single portfolio
 export const QUERY_SINGLE_PORTFOLIO = gql`
-    query getPortfolios {
-        portfolios {
-            _id
+    query getPortfolio($portfolioId: String!) {
+        getPortfolio(portfolioId: $portfolioId) {
+            portfolioId
             portfolioName
             shares
             dailyPerf
-            %Change
-            %ofPortfolio
+            percChange
+            percofPortfolio
             stock {
                 symbol
                 addedDate
@@ -75,8 +75,8 @@ export const QUERY_SINGLE_PORTFOLIO = gql`
                 currentPrice
                 dayHigh
                 dayLow
-                52WeekHigh
-                52WeekLow
+                YearHigh
+                YearLow
                 stockYTD 
                 sinceCreated
             }
