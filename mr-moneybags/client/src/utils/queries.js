@@ -33,8 +33,8 @@ export const QUERY_ME = gql`
 
 // Query for ALL portfolios
 export const QUERY_PORTFOLIOS = gql`
-    query portfolio($portfolioId: ID) {
-        portfolio(portfolioId: $portfolioId) {
+    query getPortfolios($portfolioId: String!) {
+        getPortfolios(portfolioId: $portfolioId) {
             portfolioId
             portfolioName
             shares
@@ -60,8 +60,8 @@ export const QUERY_PORTFOLIOS = gql`
 
 // Query for a single portfolio
 export const QUERY_SINGLE_PORTFOLIO = gql`
-    query getPortfolios {
-        portfolios {
+query getPortfolio($portfolioId: String!) {
+    getPortfolio(portfolioId: $portfolioId) {
             portfolioId
             portfolioName
             shares

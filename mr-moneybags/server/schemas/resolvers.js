@@ -13,12 +13,12 @@ const resolvers = {
       }
     },
 
-    portfolios: async (parent, { portfolioName }) => {
+    getPortfolios: async (parent, { portfolioName }) => {
       const params = portfolioName ? { portfolioName } : {};
       return Portfolios.find(params).sort({createdAt: -1});
     },
 
-    portfolio: async (parent, { portfolioId }) => {
+    getPortfolio: async (parent, { portfolioId }) => {
       return Portfolios.findOne({_id: portfolioId});
     }
    
