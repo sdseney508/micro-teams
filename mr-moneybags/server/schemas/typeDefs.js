@@ -42,8 +42,8 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    portfolios(portfolioName: String): [Portfolio]
-    portfolio (portfolioId: ID!): Portfolio
+    getPortfolios(portfolioName: String): [Portfolio]
+    getPortfolio (portfolioId: String!): Portfolio
 
   }
 
