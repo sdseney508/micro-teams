@@ -2,8 +2,7 @@ const { AuthenticationError } = require('@apollo/client');
 const { Users, Portfolios } = require('../models');
 const { signToken } = require('../utils/auth');
 
-//TODO: this is all new code. the goal here is to fill in the needed gaps for the Auth to work. please look it over. 
-// Changes made: Added resolvers for all queries and mutations
+
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {

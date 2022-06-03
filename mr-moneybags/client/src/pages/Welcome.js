@@ -6,10 +6,10 @@ const Welcome = () => {
   return (
     <>
       <Container>
-        <div class="bg-light p-5 rounded-lg m-3">
-          <h1 class="display-4">Yahoo Business News</h1>
-          <p class="lead">This is a simple hero unit placeholder for an eventual news ticker.</p>
-          <hr class="my-4"></hr>
+        <div className="bg-light p-5 rounded-lg m-3">
+          <h1 className="display-4">Yahoo Business News</h1>
+          <p className="lead">This is a simple hero unit placeholder for an eventual news ticker.</p>
+          <hr className="my-4"></hr>
           <p>Ideally, we can embed the ticker/cards here - but for now, the space is reserved.</p>
         </div>
       </Container>

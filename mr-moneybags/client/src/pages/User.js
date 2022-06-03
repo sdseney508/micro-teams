@@ -15,10 +15,10 @@ const User = () => {
   return (
     <>
       <Container>
-        <div class="bg-light p-5 rounded-lg m-3">
-          <h1 class="display-4">User Profile</h1>
-          <p class="lead">Shows user avatar, API tickers remaining, a button for creating a portfolio</p>
-          <hr class="my-4"></hr>
+        <div className="bg-light p-5 rounded-lg m-3">
+          <h1 className="display-4">User Profile</h1>
+          <p className="lead">Shows user avatar, API tickers remaining, a button for creating a portfolio</p>
+          <hr className="my-4"></hr>
           <p>portfolios will show up as a modal or a dropdownm below, stock news yahoo API will be linked as well.</p>
         </div>
 
