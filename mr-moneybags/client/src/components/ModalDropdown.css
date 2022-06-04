@@ -1,0 +1,19 @@
+.detailsContainer {
+  display: flex;
+  cursor: pointer;
+  /* width: fit-content; */
+  gap: 10px;
+  align-items: center;
+  height: 25px;
+}
+
+.detailsButton {
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+
+.detailsButtonRotate {
+  cursor: pointer;
+  transition: all 0.1s linear;
+  transform: rotate(90deg);
+}

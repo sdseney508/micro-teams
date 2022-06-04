@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-// import searchResults from "../../sampleAPIs/SearchEndpoint.json";
+
 import { useNavigate } from "react-router-dom";
-import SearchCards from "./SearchCards";
+import SearchCards from "./SearchCard";
 import CompanyDetails from "./CompanyDetails";
+import LoadingScreen from "./LoadingScreen";
+import StockChart from "./StockChart";
 
 function SearchBar() {
   //this needs to be replaced with something from the database, but for testing purposes, we will use my API on the front end
-  const APIKEY = "4X2274SBZP3SPX2A";
+  // const APIKEY = "4X2274SBZP3SPX2A";
+  const APIKEY = "CCK1IY5CF565MMF9";
   const [company, setCompany] = useState("");
 
   //bestMatches is an array of objects, each object is a company in the API call return
   const [result, setResult] = useState({ bestMatches: [] });
-
+  const [loading, setLoading] = useState("");
   //TODO: need to find this in the API call still or use another API call to get the company name.  Right now i cant get this to work in the CompanyDetails component.  i cant get the object to destructure and fill out the card.
+  //fixed on 4 Jun 2022.  Homeschool
   const [ticker, setTicker] = useState("");
 
   const goTo = useNavigate();
@@ -21,16 +25,23 @@ function SearchBar() {
     const url = `https://www.alphavantage.co/query?apikey=${APIKEY}&function=SYMBOL_SEARCH&datatype=json&keywords=${company}`;
     const res = await fetch(url);
     const data = await res.json();
+    // console.log(data);
     setResult(data);
+    setLoading("ran");
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     event.target[0].value = "";
-    goTo("/");
+    //give people a cool loading spinner i found at:  https://dev.to/codebucks/create-3-different-types-of-loading-screens-in-react-part-3-2o51
+    setLoading("loading");
+    goTo("/search");
     fetchData();
   };
 
+  if (loading === "loading") {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="bodyContent">
@@ -46,7 +57,7 @@ function SearchBar() {
         <button type="submit">Submit</button>
       </form>
       <br />
-      <div style={{ display: "flex",  alignItems: "flex-start" }}>
+      <div style={{ display: "flex", alignItems: "flex-start" }}>
         <div
           style={{
             display: "flex",
@@ -58,7 +69,12 @@ function SearchBar() {
         >
           <SearchCards result={result} setTicker={setTicker} ticker={ticker} />
         </div>
-        <CompanyDetails ticker={ticker} setTicker={setTicker} />
+
+        {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} />  }
+        
+      </div>
+      <div>
+        {ticker && <StockChart ticker={ticker}/>}
       </div>
     </div>
   );

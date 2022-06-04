@@ -1,116 +1,132 @@
 import React, { useContext, useState } from "react";
-// import overviewData from "../../sampleAPIs/CompanyOverview.json";
-import styles from "./CompanyDetailsCardStyle.css";
+import LoadingScreen from "./LoadingScreen";
+import StockChart from "./StockChart";
+import DetailsModal from "./DetailsModal";
+import { stateContext } from "../App";
 
-//TODO put in a details tab with stuff like 52 week high and low that is available on the API call.  want this as a drop down.  Get help from Bobby.
-import DetailsTab from "";
-import { stateContext } from "../../App";
-
-const APIKEY = "4X2274SBZP3SPX2A";
-
+// const APIKEY = "4X2274SBZP3SPX2A";
+const APIKEY = "CCK1IY5CF565MMF9";
 function CompanyDetails({ ticker, setTicker }) {
   //set the state furst
-  const [state, setState] = useContext(stateContext);
-
-  //https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${APIKEY}
  
-  const URL = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo`;
-  const [overview, setOverview] = useState({});
-  const [img, setImg] = useState("");
-  const [loading, setLoading] = useState("");
-  const [prevTicker, setPrevTicker] = useState("");
-
-  async function getStockInfo() {
-    try {
-      let res = await fetch(URL);
-      let data = await res.json();
-
-      console.log(data);
-      
-      setState({ ...state, selectedTicker: ticker });
-
-      setOverview(data);
+    const [state, setState] = useContext(stateContext);
+    // console.log(state);
+    // const numeral = require("numeral");
+    //https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${APIKEY}
+    //https://www.alphavantage.co/query?function=OVERVIEW&symbol=TSLAX&apikey=$4X2274SBZP3SPX2A
+    //https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo
   
-      data = await res.json();
-      setImg(data);
+    const URL = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${APIKEY}`;
+    const [overview, setOverview] = useState({});
+    const [img, setImg] = useState("");
+    const [loading, setLoading] = useState("");
+    const [prevTicker, setPrevTicker] = useState("");
+    // if (ticker === "") {
+    //   console.log("ticker is empty");
+    // } 
+    // else {
+    async function getStockInfo() {
+      try {
+        let res = await fetch(URL);
+        let data = await res.json();
 
-      //error handler
-    } catch (error) {
-      alert("No details found");
-    
-      //resets the ticker back to null
-      setTicker("");
+        // console.log(data);
+
+        setState({ ...state, selectedTicker: ticker });
+
+        setOverview(data);
+
+        setLoading("ran");
+
+        // data = await res.json();
+        // setImg(data);
+      } catch (error) {
+        console.log("i got an error:" + error);
+        alert("No details found");
+        setLoading("ran");
+        setTicker("");
+      }
     }
-  }
+    //check to see if we selected something new to pull up
+    if (prevTicker !== ticker) {
+      //reset my stock name
+      setPrevTicker(ticker);
+      //get company data function
+      getStockInfo();
 
-  if (prevTicker !== ticker) {
-    setPrevTicker(ticker);
-    getStockInfo();
-    //TODO discuss with Grayden.  This should work but doesnt appear to.  i'm just reusing the overview i've already set.
-    setOverview(overview);
-  }
+      //TODO:  use this to make my overview card; but it's not working with my API key
+      setOverview(overview);
+      setLoading("loading");
+    }
 
-  let arr = [
-    <div key={ticker}>
-      <p>
-        <b>Company Name</b>: {overview.Name}
-      </p>
-      <p>
-        <b>Symbol</b>: {overview.Symbol}
-      </p>
-      <p>
-        <b>Exchange</b>: {overview.Exchange}
-      </p>
-      <p>
-        <b>Industry</b>: {overview.Industry}
-      </p>
-      <p>
-        <b>Description</b>: {overview.Description}
-      </p>
-      <p>
-        <b>Country</b>: {overview.Country}
-      </p>
-    </div>,
-  ];
+    if (loading === "loading") {
+      return <LoadingScreen />;
+    }
 
-  if (loading === "ran") {
-    return (
-      <>
-        <div
-          className={styles.card}
-          id="companyOverview"
-          // TODO Get help from Bobby on styling.  i suck at this
-          style={{ flexBasis: "70%", fontSize: "1rem" }}
-        >
-          <div className={styles.container}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
+    let arr = [
+      <div key={ticker}>
+        <p>
+          <b>Company Name</b>: {overview.Name}
+        </p>
+        <p>
+          <b>Symbol</b>: {overview.Symbol}
+        </p>
+        <p>
+          <b>Exchange</b>: {overview.Exchange}
+        </p>
+        <p>
+          <b>Industry</b>: {overview.Industry}
+        </p>
+        <p>
+          <b>Description</b>: {overview.Description}
+        </p>
+        <p>
+          <b>Country</b>: {overview.Country}
+        </p>
+        Where is my damn chart
+        <StockChart ticker={ticker} />
+      </div>,
+    ];
+
+    if (loading === "ran") {
+      return (
+        <>
+          <div
+            className="card"
+            id="CompanyDetails"
+            // TODO Get help from Bobby on styling.  i suck at this
+            style={{ flexBasis: "70%", fontSize: "1rem" }}
+          >
+            <div className="container">
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "center",
-                  gap: "20px",
-                  borderBottom: "2px solid black",
+                  flexDirection: "column",
                 }}
               >
-                <h2>{overview.Name}</h2>
-                <div style={{ margin: "auto 0" }}>
-                  <img src={img.url} alt="" style={{ width: "60px" }} />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "20px",
+                    borderBottom: "2px solid black",
+                  }}
+                >
+                  <h2>{overview.Name || "Not a valid US Company.  Please Select a different ticker."}</h2>
+                  <div style={{ margin: "auto 0" }}>
+                    <img src={img.url} alt="" style={{ width: "60px" }} />
+                  </div>
                 </div>
-              </div>
 
-              <div>{arr}</div>
+                <div>{arr}</div>
                 {/* TODO still working on the details section showing the 52 week high and low and that kind of stuff */}
-              {/* <DetailsTab /> */}
+                <DetailsModal ticker={ticker} />
+              </div>
             </div>
           </div>
-        </div>
-      </>
-    );
+        </>
+      );
+    // }
   }
 }
 
