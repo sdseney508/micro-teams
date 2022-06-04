@@ -1,6 +1,4 @@
-// Changes made: Removed some features in the portfolio type as they are present in the Stock type
-// For Mutations: Added a remove and addition Portfolio feature
-// For queries: Added retrievals for one portfolio and ALL portfolios user has
+// File for model restructuring, query and mutation defining
 
 const { gql } = require('@apollo/client');
 const typeDefs = gql`
@@ -33,15 +31,21 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    getPortfolios(): [Portfolio]
+    getPortfolios: [Portfolio]
     getPortfolio (portfolioName: String!): Portfolio
   }
 
   type Mutation {
+    // Login and Signup mutations
     addUser( email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth
+
+    // Portfolio mutations
     addPortfolio(portfolioName: String!): User
-    deletePortfolio(portfolioId: String!): User
+    updatePortfolio(portfolioName: String!): User
+
+    // Stock mutation
+    deleteStock(name: String!): User
 
   }
 `;

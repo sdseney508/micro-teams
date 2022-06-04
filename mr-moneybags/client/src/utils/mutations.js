@@ -18,7 +18,6 @@ export const LOGIN_USER = gql`
 export const ADD_USER = gql`
     mutation addUser($email: String!, $password: String!) {
         addUser(email: $email, password: $password) {
-            token
             user {
                 _id
                 email
@@ -51,9 +50,8 @@ export const UPDATE_PORTFOLIO = gql`
 `
 // TODO figure out how to delete a single stock object from a specific portfolio
 export const DELETE_STOCK = gql`
-    mutation updatePortfolio($portfolioName: String!) {
-        updatePortfolio(portfolioName: $portfolioName) {
-            portfolioName
+    mutation deleteStock($name: String!) {
+        deleteStock(name: $name) {
             stocks: [{
                 name: String!
                 dateAdded: String!
