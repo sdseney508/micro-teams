@@ -8,23 +8,11 @@ export const QUERY_ME = gql`
             _id
             email
             portfolios {
-                portfolioId
                 portfolioName
-                shares
-                dailyPerf
-                %Change
-                %ofPortfolio
-                stock {
-                    symbol
-                    addedDate
+                stocks {
+                    name 
                     purchasePrice
-                    currentPrice
-                    dayHigh
-                    dayLow
-                    52WeekHigh
-                    52WeekLow
-                    stockYTD 
-                    sinceCreated
+                    shares
                 }
             }
         }
@@ -33,25 +21,13 @@ export const QUERY_ME = gql`
 
 // Query for ALL portfolios
 export const QUERY_PORTFOLIOS = gql`
-    query getPortfolios($portfolioId: String!) {
-        getPortfolios(portfolioId: $portfolioId) {
-            portfolioId
+    query getPortfolios($portfolioName: String!) {
+        getPortfolios(portfolioName: $portfolioName) {
             portfolioName
-            shares
-            dailyPerf
-            %Change
-            %ofPortfolio
-            stock {
-                symbol
-                addedDate
+            stocks {
+                name 
                 purchasePrice
-                currentPrice
-                dayHigh
-                dayLow
-                52WeekHigh
-                52WeekLow
-                stockYTD 
-                sinceCreated
+                shares
             }
         }
     }
@@ -60,25 +36,13 @@ export const QUERY_PORTFOLIOS = gql`
 
 // Query for a single portfolio
 export const QUERY_SINGLE_PORTFOLIO = gql`
-query getPortfolio($portfolioId: String!) {
-    getPortfolio(portfolioId: $portfolioId) {
-            portfolioId
+query getPortfolio($portfolioName: String!) {
+    getPortfolio(portfolioName: $portfolioName) {
             portfolioName
-            shares
-            dailyPerf
-            %Change
-            %ofPortfolio
-            stock {
-                symbol
-                addedDate
+            stocks {
+                name 
                 purchasePrice
-                currentPrice
-                dayHigh
-                dayLow
-                52WeekHigh
-                52WeekLow
-                stockYTD 
-                sinceCreated
+                shares
             }
         }
     }
