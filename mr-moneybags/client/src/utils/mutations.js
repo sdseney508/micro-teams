@@ -33,7 +33,7 @@ export const ADD_PORTFOLIO = gql`
             portfolioName
         }
     }
-`
+`;
 
 export const UPDATE_PORTFOLIO = gql`
     mutation updatePortfolio($portfolioName: String!) {
@@ -47,8 +47,8 @@ export const UPDATE_PORTFOLIO = gql`
             ]
         }
     }
-`
-// TODO figure out how to delete a single stock object from a specific portfolio
+`;
+
 export const DELETE_STOCK = gql`
     mutation deleteStock($name: String!) {
         deleteStock(name: $name) {
@@ -61,4 +61,4 @@ export const DELETE_STOCK = gql`
             ]
         }
     }
-`
+`;
