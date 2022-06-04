@@ -1,6 +1,6 @@
 // File for model restructuring, query and mutation defining
 
-const { gql } = require('@apollo/client');
+const { gql } = require('apollo-server-express');
 const typeDefs = gql`
 
   type User {
