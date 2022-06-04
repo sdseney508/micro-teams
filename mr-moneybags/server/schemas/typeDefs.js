@@ -8,31 +8,22 @@ const typeDefs = gql`
   type User {
     _id: ID!
     email: String!
+    password: String!
+    apiKey: String!
     portfolios: [Portfolio]
   }
 
   type Portfolio {
-    portfolioId: String!
     portfolioName: String!
-    stock: Stock!
-    shares: Int!
-    dailyPerf: Float!
-    percChange: Float!
-    percofPortfolio: Float!
+    createdDate: String!
+    stocks: [Stock]
   }
 
   type Stock {  
-    symbol: String!
-    addedDate: String!
+    name: String!
+    dateAdded: String!
     purchasePrice: Float!
-    currentPrice: Float!
-    dayHigh: Float!
-    dayLow: Float!
-    YearHigh: Float!
-    YearLow: Float!
-    stockYTD: Float! 
-    sinceCreated: Float!
-
+    shares: Int!
   }
 
   type Auth {
@@ -42,9 +33,8 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    getPortfolios(portfolioName: String): [Portfolio]
-    getPortfolio (portfolioId: String!): Portfolio
-
+    getPortfolios(): [Portfolio]
+    getPortfolio (portfolioName: String!): Portfolio
   }
 
   type Mutation {

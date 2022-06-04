@@ -18,6 +18,7 @@ export const LOGIN_USER = gql`
 export const ADD_USER = gql`
     mutation addUser($email: String!, $password: String!) {
         addUser(email: $email, password: $password) {
+            token
             user {
                 _id
                 email
@@ -30,24 +31,36 @@ export const ADD_USER = gql`
 export const ADD_PORTFOLIO = gql`
     mutation addPortfolio($portfolioName: String!) {
         addPortfolio(portfolioName: $portfolioName) {
-            portfolioId
             portfolioName
-            stock
-            dailyPerf
-            percChange
-            percofPortfolio
-            stock {
-                symbol
-                addedDate
-                purchasePrice
-                currentPrice
-                dayHigh
-                dayLow
-                YearHigh
-                YearLow
-                stockYTD 
-                sinceCreated
+        }
+    }
+`
+
+export const UPDATE_PORTFOLIO = gql`
+    mutation updatePortfolio($portfolioName: String!) {
+        updatePortfolio(portfolioName: $portfolioName) {
+            portfolioName
+            stocks: [{
+                name: String!
+                purchasePrice: Float!
+                shares: Int!
             }
+            ]
+        }
+    }
+`
+// TODO figure out how to delete a single stock object from a specific portfolio
+export const DELETE_STOCK = gql`
+    mutation updatePortfolio($portfolioName: String!) {
+        updatePortfolio(portfolioName: $portfolioName) {
+            portfolioName
+            stocks: [{
+                name: String!
+                dateAdded: String!
+                purchasePrice: Float!
+                shares: Int!
+            }
+            ]
         }
     }
 `
