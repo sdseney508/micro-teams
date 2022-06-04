@@ -36,15 +36,13 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    // Login and Signup mutations
+
     addUser( email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth
 
-    // Portfolio mutations
     addPortfolio(portfolioName: String!): User
     updatePortfolio(portfolioName: String!): User
 
-    // Stock mutation
     deleteStock(name: String!): User
 
   }
