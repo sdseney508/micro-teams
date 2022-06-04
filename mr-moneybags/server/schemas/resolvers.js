@@ -8,24 +8,27 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         const userData = await Users.findOne({_id: context.user._id}).populate('portfolios');
-        // .select('.__v -password');
         return userData;
       }
     },
 
-    getPortfolios: async (parent, { portfolioName }) => {
-      const params = portfolioName ? { portfolioName } : {};
-      return Portfolios.find(params).sort({createdAt: -1});
+    getPortfolios: async (parent, args, context) => {
+      if (context.user) {
+        return Portfolios.find().sort({createdAt: -1});
+      }
     },
 
-    getPortfolio: async (parent, { portfolioId }) => {
-      return Portfolios.findOne({_id: portfolioId});
+    getPortfolio: async (parent, { portfolioName }, context) => {
+      if (context.user) {
+        return Portfolios.findOne({portfolioName: portfolioName});
+      }
     }
    
   },
 
-  
   Mutation: {
+
+    // Mutations to handle user account info
     addUser: async (parent, { email, password }) => {
       const user = await Users.create({ email, password });
       const token = signToken(user);
@@ -46,17 +49,16 @@ const resolvers = {
       return { token, user };
     },
 
-    addPortfolio: async (parent, { portfolio }, context) => {
+    // Mutations to handle portfolio actions
+    addPortfolio: async (parent, args, context) => {
       if (context.user) {
-        // const portfolio = await Portfolios.create({
-        //   stocks,
-        //   portfolioName: context.user.portfolioName
-        // });
+        const portfolio = await Portfolios.create({
+          portfolioName: context.user.portfolioName
+        });
 
         const user = await Users.findOneAndUpdate(
           {_id: context.user._id},
           {$addToSet: { portfolios: portfolio }},
-          // Added this line today
           {new: true}
         );
         return user;
@@ -64,20 +66,38 @@ const resolvers = {
       throw new AuthenticationError('You must be logged in!');
     },
 
-    deletePortfolio: async (parent, { portfolioId }, context) => {
+    // Mutation for updating portfolios with the stock information
+    updatePortfolio: async (parent, { portfolioName, stocks }, context) => {
       if (context.user) {
-        // const portfolio = await Portfolios.findOneAndDelete({
-        //   _id: portfolioId,
-        //   portfolioName: context.user.portfolioName
-        // });
-
-        const user = await Users.findOneAndUpdate(
-          {_id: context.user._id},
-          {$pull: { portfolios: {portfolioId: portfolioId} }},
-          // Added this line today
+        const updatePort = await Portfolios.findOneAndUpdate(
+          portfolioName, 
+          {$push: {stocks: stocks}},
           {new: true}
         );
-        // return portfolio;
+        const user = await Users.findOneAndUpdate(
+          {_id: context.user._id},
+          {$addToSet: {portfolios: updatePort}},
+          {new: true}
+        );
+        return user;
+      }
+      throw new AuthenticationError('You must be logged in!')
+    },
+
+    // Mutation for deleting stocks from an existing portfolio
+    deleteStock: async (parent, { portfolioName, stocks }, context) => {
+      if (context.user) {
+        const updatedPort = await Portfolios.findOneAndUpdate(
+          portfolioName,
+          {$pull: {stocks: stocks}},
+          {new: true}
+        );
+
+        const user = await Users.findByIdAndUpdate(
+          {_id: context.user._id},
+          {$addToSet: {portfolios: updatedPort}},
+          {new: true}
+        );
         return user;
       }
       throw new AuthenticationError('You must be logged in!')
@@ -86,30 +106,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-
-
-/*
-  const resolvers = {
-    Query: {
-      me: async (parent, args, context) => {
-        if (context.user) {
-          const userDate = await User.findOne({_id: context.user_id})
-          .select('.__v -password');
-          console.log(userData);
-          return userData;
-        }
-        throw new AuthernticationError("You must be logged in to create a portfolio!")
-      }
-
-      Mutations: {
-
-        addPortfolio: async (parent, args) => {}
-        login: async (parent, {email, password}) => {
-          const user = await User.findOne({email});
-          if (!user)
-        }
-      }
-    }
-  }
-
-*/
