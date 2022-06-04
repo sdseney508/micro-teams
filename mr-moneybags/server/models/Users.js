@@ -16,9 +16,10 @@ const userSchema = new Schema(
         max_length: 16,
         required: true,
       },
+      
       apiKey: {
           type: String,
-          required: true,
+          // required: true,
       },
    
       portfolios: [
