@@ -18,6 +18,7 @@ export const LOGIN_USER = gql`
 export const ADD_USER = gql`
     mutation addUser($email: String!, $password: String!) {
         addUser(email: $email, password: $password) {
+            token
             user {
                 _id
                 email
@@ -39,12 +40,11 @@ export const UPDATE_PORTFOLIO = gql`
     mutation updatePortfolio($portfolioName: String!) {
         updatePortfolio(portfolioName: $portfolioName) {
             portfolioName
-            stocks: [{
-                name: String!
-                purchasePrice: Float!
-                shares: Int!
+            stocks {
+                name 
+                purchasePrice
+                shares
             }
-            ]
         }
     }
 `;
@@ -52,13 +52,12 @@ export const UPDATE_PORTFOLIO = gql`
 export const DELETE_STOCK = gql`
     mutation deleteStock($name: String!) {
         deleteStock(name: $name) {
-            stocks: [{
-                name: String!
-                dateAdded: String!
-                purchasePrice: Float!
-                shares: Int!
+            stocks {
+                name
+                dateAdded
+                purchasePrice
+                shares
             }
-            ]
         }
     }
 `;
