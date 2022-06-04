@@ -6,7 +6,7 @@ const expiration = '2h';
 
 module.exports = {
   // function for our authenticated routes
-  authMiddleware: function ( {req} ) {
+  authMiddleware: function ( req, res, next ) {
     // allows token to be sent via  req.query or headers
     // Added tokens to be sent via req.body as well
     let token = req.query.token || req.body.token || req.headers.authorization;
@@ -17,7 +17,7 @@ module.exports = {
     }
 
     if (!token) {
-      return req;
+      return res.status(400).json({ message: 'You have no token!' });
     }
 
     // verify token and get user data out of it
@@ -27,14 +27,14 @@ module.exports = {
       req.user = data;
     } catch {
       console.log('Invalid token');
-      return req;
+      return res.status(400).json({ message: 'invalid token!' });
     }
 
     // send to next endpoint
     next();
   },
   signToken: function ({ email, _id }) {
-    console.log('token has been singed m-Lord!')
+    console.log('token has been signed m-Lord!')
     const payload = { email, _id };
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
