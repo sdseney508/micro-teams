@@ -52,7 +52,6 @@ const typeDefs = gql`
     loginUser(email: String!, password: String!): Auth
     addPortfolio(portfolioName: String!): User
     deletePortfolio(portfolioId: String!): User
-    login(email: String!, password: String!): Auth
 
   }
 `;

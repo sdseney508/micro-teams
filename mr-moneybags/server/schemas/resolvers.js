@@ -1,4 +1,4 @@
-const { AuthenticationError } = require('@apollo/client');
+// const { AuthenticationError } = require('@apollo/client');
 const { Users, Portfolios } = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -7,8 +7,8 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await Users.findOne({_id: context.user._id})
-        .select('.__v -password');
+        const userData = await Users.findOne({_id: context.user._id}).populate('portfolios');
+        // .select('.__v -password');
         return userData;
       }
     },
@@ -31,7 +31,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    login: async (parent, { email, password }) => {
+    loginUser: async (parent, { email, password }) => {
       const user = await Users.findOne({ email });
       if (!user) {
         throw new AuthenticationError('Incorrect email or password.');
@@ -46,36 +46,39 @@ const resolvers = {
       return { token, user };
     },
 
-    addPortfolio: async (parent, { stocks }, context) => {
+    addPortfolio: async (parent, { portfolio }, context) => {
       if (context.user) {
-        const portfolio = await Portfolios.create({
-          stocks,
-          portfolioName: context.user.portfolioName
-        });
+        // const portfolio = await Portfolios.create({
+        //   stocks,
+        //   portfolioName: context.user.portfolioName
+        // });
 
-        await Users.findOneAndUpdate(
+        const user = await Users.findOneAndUpdate(
           {_id: context.user._id},
-          {$addToSet: { portfolios: portfolio._id }}
+          {$addToSet: { portfolios: portfolio }},
+          // Added this line today
+          {new: true}
         );
-
-        return portfolio;
+        return user;
       }
       throw new AuthenticationError('You must be logged in!');
     },
 
     deletePortfolio: async (parent, { portfolioId }, context) => {
       if (context.user) {
-        const portfolio = await Portfolios.findOneAndDelete({
-          _id: portfolioId,
-          portfolioName: context.user.portfolioName
-        });
+        // const portfolio = await Portfolios.findOneAndDelete({
+        //   _id: portfolioId,
+        //   portfolioName: context.user.portfolioName
+        // });
 
-        await Users.findOneAndUpdate(
-          {_id: portfolioId},
-          {$pull: { portfolios: portfolio._id }}
+        const user = await Users.findOneAndUpdate(
+          {_id: context.user._id},
+          {$pull: { portfolios: {portfolioId: portfolioId} }},
+          // Added this line today
+          {new: true}
         );
-
-        return portfolio;
+        // return portfolio;
+        return user;
       }
       throw new AuthenticationError('You must be logged in!')
     }
