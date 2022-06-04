@@ -4,22 +4,18 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
 
   type User {
-    _id: ID!
+    _id: ID
     email: String!
-    password: String!
-    apiKey: String!
     portfolios: [Portfolio]
   }
 
   type Portfolio {
     portfolioName: String!
-    createdDate: String!
     stocks: [Stock]
   }
 
   type Stock {  
     name: String!
-    dateAdded: String!
     purchasePrice: Float!
     shares: Int!
   }
@@ -36,15 +32,11 @@ const typeDefs = gql`
   }
 
   type Mutation {
-
     addUser( email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth
-
     addPortfolio(portfolioName: String!): User
     updatePortfolio(portfolioName: String!): User
-
     deleteStock(name: String!): User
-
   }
 `;
 
