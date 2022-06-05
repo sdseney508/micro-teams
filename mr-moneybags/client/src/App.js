@@ -1,6 +1,14 @@
-import React from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+  createContext
+} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { render } from "react-dom";
+import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 //Apollo client setup
 import {
   ApolloClient,
@@ -16,6 +24,10 @@ import Welcome from "./pages/Welcome";
 import ViewPort from "./pages/ViewPort";
 import CreatePort from "./pages/CreatePort";
 import User from "./pages/User";
+import SearchBar from "./components/SearchBar";
+import Summary from "./components/Summary";
+
+export const stateContext = createContext();
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -44,26 +56,39 @@ const client = new ApolloClient({
 
 
 function App() {
+  const [state, setState] = useState({
+    selectedTicker: "",
+    companyData: {},
+  });
+
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <>
-          <Navbar />
-          <Routes>
+    <div>
+      <stateContext.Provider value={[state, setState]}>
+        <ApolloProvider client={client}>
+          <Router>
+            <>
+              <Navbar />
+              <Routes>
 
-            <Route path="/" element={<Welcome />} />
-            <Route path="/viewport" element={<ViewPort />} />
-            <Route path="/createport" element={<CreatePort />} />
-            <Route path="/user" element={<User />} />
-
-            <Route
-              path="*"
-              element={<h1 className="display-2">Sorry Chief - Wrong page!</h1>}
-            />
-          </Routes>
-        </>
-      </Router>
-    </ApolloProvider>
+                <Route path="/" element={<Welcome />} />
+                <Route path="/viewport" element={<ViewPort />} />
+                <Route path="/createport" element={<CreatePort />} />
+                <Route path="/user" element={<User />} />
+                <Route path="/search" element={<SearchBar />} />
+                  <Route path="/summary" element={<Summary 
+                        overview={state.companyData}
+                        dailyShares={state.dailyShares}
+                        />
+                      } />
+                <Route path="*"
+                  element={<h1 className="display-2">Sorry Chief - Wrong page!</h1>}
+                  />
+              </Routes>
+            </>
+          </Router>
+        </ApolloProvider>
+      </stateContext.Provider>
+    </div>
   );
 }
 

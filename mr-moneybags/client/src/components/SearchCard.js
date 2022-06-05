@@ -1,22 +1,26 @@
 import React from "react";
-import styles from "./SearchCardStyle.css";
+import "./SearchCardStyle.css";
 
 //uses the results from alphavantage api to display the data from the search bar.
 // See https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo for the data format
 
 function SearchCards({ result, setTicker, ticker }) {
   const handleClick = (event) => {
-    const parentID = event.target.parentNode.id;
-    setTicker(parentID);
+    // event.preventDefault();
+    console.log("i'm in the handle click");
+    console.log(ticker);
+    console.log(event.target.parentNode.id);
+    if (ticker !== event.target.parentNode.id) {
+      const parentID = event.target.parentNode.id;
+      setTicker(parentID);
+    }
   };
 
   let innerArr = [];
   let outerArr = [];
   if (result["bestMatches"].length === 0) {
-
   } else {
-
-    for (let companies of result["bestMatches"]) {
+    for (let companies of result?.["bestMatches"]) {
       for (let i = 0; i < 4; i++) {
         let text = "";
         switch (i) {
@@ -44,12 +48,13 @@ function SearchCards({ result, setTicker, ticker }) {
       outerArr.push(
         <div key={Object.values(companies)?.[0]}>
           <div
-            className={styles.card}
+            className="card"
             onClick={(event) => handleClick(event)}
             id={Object.values(companies)?.[0]}
           >
             <div
-              className={styles.container}
+              className="container"
+              onClick={(event) => handleClick(event)}
               id={Object.values(companies)?.[0]}
             >
               {innerArr}
