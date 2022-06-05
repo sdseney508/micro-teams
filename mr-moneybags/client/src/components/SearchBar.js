@@ -19,8 +19,6 @@ function SearchBar() {
   //fixed on 4 Jun 2022.  Homeschool
   const [ticker, setTicker] = useState("");
 
-  const goTo = useNavigate();
-
   async function fetchData() {
     const url = `https://www.alphavantage.co/query?apikey=${APIKEY}&function=SYMBOL_SEARCH&datatype=json&keywords=${company}`;
     const res = await fetch(url);
@@ -35,7 +33,7 @@ function SearchBar() {
     event.target[0].value = "";
     //give people a cool loading spinner i found at:  https://dev.to/codebucks/create-3-different-types-of-loading-screens-in-react-part-3-2o51
     setLoading("loading");
-    goTo("/search");
+    // goTo("/search");
     fetchData();
   };
 

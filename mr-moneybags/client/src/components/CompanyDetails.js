@@ -21,16 +21,11 @@ function CompanyDetails({ ticker, setTicker }) {
     const [img, setImg] = useState("");
     const [loading, setLoading] = useState("");
     const [prevTicker, setPrevTicker] = useState("");
-    // if (ticker === "") {
-    //   console.log("ticker is empty");
-    // } 
-    // else {
+
     async function getStockInfo() {
       try {
         let res = await fetch(URL);
         let data = await res.json();
-
-        // console.log(data);
 
         setState({ ...state, selectedTicker: ticker });
 
@@ -83,7 +78,7 @@ function CompanyDetails({ ticker, setTicker }) {
           <b>Country</b>: {overview.Country}
         </p>
         Where is my damn chart
-        <StockChart ticker={ticker} />
+        {/* <StockChart ticker={ticker} /> */}
       </div>,
     ];
 
@@ -119,7 +114,7 @@ function CompanyDetails({ ticker, setTicker }) {
 
                 <div>{arr}</div>
                 {/* TODO still working on the details section showing the 52 week high and low and that kind of stuff */}
-                <DetailsModal ticker={ticker} />
+                {/* <DetailsModal ticker={ticker} /> */}
               </div>
             </div>
           </div>

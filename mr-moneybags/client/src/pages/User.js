@@ -49,6 +49,10 @@ const User = () => {
             <div className="bg-light p-5 rounded-lg m-3">
               <h1 className="display-4">User Profile Picture</h1>
               <p className="lead">
+              <Form.Group controlId="formFile" className="mb-3">
+    <Form.Label>Click Here to Upload Avatar</Form.Label>
+    <Form.Control type="file" />
+  </Form.Group>
                 Shows user avatar, API tickers remaining, a button for creating
                 a portfolio
               </p>
