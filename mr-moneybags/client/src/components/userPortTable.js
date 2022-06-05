@@ -5,17 +5,20 @@ import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 import "ag-grid-community/dist/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/dist/styles/ag-theme-alpine.css"; // Optional theme CSS
 
-function UserPortTable() {
+function StockTable() {
 
   const gridRef = useRef(); // Optional - for accessing Grid's API
-  const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, 
-
+  const [rowData, setRowData] = useState(); // Set rowData to Array of Objects, one Object per Row
+  const rowD = [
+    { Stock: "IBM", Date: "2022-05-27", High: 121, Low: 100 },
+    { Stock: "IBM", Date: "2022-05-28", High: 125, Low: 121 },
+  ];
   // Each Column Definition results in one Column.
   const [columnDefs, setColumnDefs] = useState([
-    { field: "Portfolio", filter: true },
-    { field: "Start Date", filter: true },
-    { field: "Performance", filter: true },
-    { field: "Current Value" },
+    { field: "Stock", filter: true },
+    { field: "Date", filter: true },
+    { field: "High", filter: true },
+    { field: "Low" },
   ]);
 
   // DefaultColDef sets props common to all Columns
@@ -34,36 +37,38 @@ function UserPortTable() {
       "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo")
       .then((result) => result.json())
       .then((r) => {
-        console.log(r);
+        // console.log(r);
+        const current_date = r["Meta Data"]["3. Last Refreshed"];
         const valuesObject = r["Time Series (Daily)"];
+        console.log(current_date);
         const values = [];
+
+        //to get the keys, use const keys = Object.keys(valuesObject);
         Object.keys(valuesObject).forEach((key) => {
           values.push(valuesObject[key]);
         });
-        console.log(values);
+        // console.log(values);
         const yrHigh = values.filter((val,i) => i < 10 ).reduce((acc, curr) => {
           return acc > curr["2. high"] ? parseFloat(acc) : parseFloat(curr["2. high"]);
         })
         const yrLow = values.filter((val,i) => i < 10 ).reduce((acc, curr) => {
           return acc < curr["3. low"] ? parseFloat(acc) : parseFloat(curr["3. low"]);
         })
-        console.log(yrHigh);
-        console.log(yrLow);
-        // const currVal = values[0]
-        // console.log(r["Time Series (Daily)"]);
-        // setRowData(r)});
       })
-    // setRowData(rowD)
-  }, []);
+     setRowData(rowD)
+  }, [rowD]);
 
   // Example using Grid's API
-  const cellClickedListener = useCallback((e) => {
-    window.alert(`${e.data.Portfolio} clicked!`);
+  const buttonListener = useCallback((e) => {
+    gridRef.current.api.deselectAll();
   }, []);
 
   return (
     <div>
-     {/* On div wrapping Grid a) specify theme CSS Class Class and b) sets Grid size */}
+      {/* Example using Grid's API */}
+      <button onClick={buttonListener}>Push Me</button>
+
+      {/* On div wrapping Grid a) specify theme CSS Class Class and b) sets Grid size */}
       <div className="ag-theme-alpine" style={{ width: 500, height: 500 }}>
         <AgGridReact
           ref={gridRef} // Ref for accessing Grid's API
@@ -71,7 +76,7 @@ function UserPortTable() {
           columnDefs={columnDefs} // Column Defs for Columns
           defaultColDef={defaultColDef} // Default Column Properties
           animateRows={true} // Optional - set to 'true' to have rows animate when sorted
-          rowSelection="single" // Options - allows click selection of rows
+          rowSelection="multiple" // Options - allows click selection of rows
           onCellClicked={cellClickedListener} // Optional - registering for Grid Event
         />
       </div>
@@ -79,4 +84,4 @@ function UserPortTable() {
   );
 }
 
-export default UserPortTable;
+export default StockTable;

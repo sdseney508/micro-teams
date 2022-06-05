@@ -1,0 +1,157 @@
+{
+  "meta": { "found": 26851, "returned": 3, "limit": 3, "page": 1 },
+  "data": [
+    {
+      "uuid": "3dc09c99-88c8-4089-a773-5406eacece6f",
+      "title": "Elon Musk and Tesla Have Good News for Europe",
+      "description": "Europe, where Tesla has just opened a production site, is an important market for the electric vehicle manufacturer and its CEO.",
+      "keywords": "Tesla, Investing, Technology, Technology, Investing, Electric Vehicles, Stocks, Elon Musk, TECHNOLOGY, INVESTING, Stocks, Electric Vehicles, LIFESTYLE, Automotive, Transport, CARS, Automotive",
+      "snippet": "Europe, where Tesla has just opened a production site, is an important market for the electric vehicle manufacturer and its CEO.\n\nThe wait for Tesla (TSLA) - Ge...",
+      "url": "https://www.thestreet.com/technology/elon-musk-and-tesla-have-good-news-for-europe",
+      "image_url": "https://www.thestreet.com/.image/t_share/MTc0ODU1OTgwMDIwOTk5NTQ2/tesla-ceo-elon-musk-has-proved-start-ups-with-the-right-technology-and-determination-can-take-on-entrenched-industry-giants-photo-reuters.jpg",
+      "language": "en",
+      "published_at": "2022-06-05T17:57:56.000000Z",
+      "source": "thestreet.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "TSLA",
+          "name": "Tesla, Inc.",
+          "exchange": "NASDAQ",
+          "exchange_long": "NASDAQ Stock Exchange",
+          "country": "us",
+          "type": "equity",
+          "industry": "Consumer Cyclical",
+          "match_score": 33.586273,
+          "sentiment_score": 0.488991,
+          "highlights": [
+            {
+              "highlight": "Europe, where <em>Tesla</em> has just opened a production site, is an important market for the electric vehicle manufacturer and its CEO.\n\nThe wait for <em>Tesla</em> (TSLA) - Get <em>Tesla</em> <em>Inc</em> Report and Elon Musk fans and customers in Europe is about to end.\n\nThe year 2022 is that of Europe at <em>Tesla</em> (TSLA) - Get <em>Tesla</em> <em>Inc</em> Report and Elon Musk.",
+              "sentiment": 0.2023,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "This site, which houses a vehicle assembly plant and a battery development plant, primarily serves the European market and will enable <em>Tesla</em> to significantly increase its production volumes.",
+              "sentiment": 0.3182,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "Musk said <em>Tesla</em>, which delivered nearly a million vehicles in 2021, is expected to deliver at least 1.5 million cars in 2022 despite supply chain disruptions, chip shortages and soaring prices raw materials like nickel.\n\nIf European customers appreciated these marks of interest, they were nevertheless left unsatisfied.",
+              "sentiment": 0.7105,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "Musk said in January that thanks to the advancements and innovations made by the company, FSD would enable <em>Tesla</em> cars to be self-driving by the end of 2022. The advanced version of FSD is called FSD Beta. And it's for <em>Tesla</em> car owners who wish to help the firm test and collect data for their FSD program. The Betas are opt-in only.",
+              "sentiment": 0.8519,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "A <em>Tesla</em> owner must have the FSD package or a monthly subscription, a supported vehicle/hardware, be in a supported region, and have a high safety score to be admitted into the Beta tests. The FSD costs $12,000.",
+              "sentiment": 0.7783,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "'Big Deal'\n\nIn addition to simple maneuvers like lane change, auto park, FSD Beta \"actively guides your car from a highway’s on-ramp to off-ramp, including suggesting lane changes, navigating interchanges, automatically engaging the turn signal and taking the correct exit,\" <em>Tesla</em> said.",
+              "sentiment": 0.7351,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "<em>Tesla</em> says FSD Beta 10.12.2 improves the decision making, a better and accurate vision of pedestrians, bikes as well as motorcycles.\n\nAnd version 10.13 is already on the horizon, according to Musk.",
+              "sentiment": 0.8316,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "This version of FSD Beta will allow <em>Tesla</em> cars to perform maneuvers alone on roads whose data is not listed on any map. In this case, the car will rest on its vision-based self-driving components to navigate roads where GPS signal is nonexistent.\n\n\"Last point is a big deal,\" Musk confirmed.",
+              "sentiment": -0.0258,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "\"Would be beneficial to <em>Tesla</em> to watch Rideshare drivers like me where real drop off and pick up locations are. Let's map this.\"\n\n\"Yes, car will navigate to a pin location, even if in a complex surface parking lot or hotel entrance,\" the billionaire entrepreneur answered.",
+              "sentiment": 0.5106,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "Musk's new announcement backs up one of his Twitter posts from March in which the mogul said <em>Tesla</em> might be introducing FSD to Europe this summer.\n\n\"FSD Beta should be available in Europe for LHD this summer, RHD a few months later. These dates depend on regulatory approval,\" he said on March 29.\n\n<em>Tesla</em> faces a big challenge in Europe.",
+              "sentiment": 0.0258,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "Elon Musk and <em>Tesla</em> Have Good News for Europe",
+              "sentiment": 0.4404,
+              "highlighted_in": "title"
+            }
+          ]
+        }
+      ],
+      "similar": []
+    },
+    {
+      "uuid": "e068ee63-cba4-4dd3-b174-db11f6253c4c",
+      "title": "46M DOGE Transferred In One Go As Whales Play With The Market",
+      "description": "Over 46 million Dogecoin (CRYPTO: DOGE) were moved in a single transaction earlier on Sunday.",
+      "keywords": "",
+      "snippet": "Over 46 million Dogecoin DOGE/USD were moved in a single transaction earlier on Sunday.\n\nWhat Happened: The transaction processed on Sunday moved over 40.6 mill...",
+      "url": "https://www.benzinga.com/markets/cryptocurrency/22/06/27558339/46m-doge-transferred-in-one-go-as-whales-play-with-the-market",
+      "image_url": "https://cdn.benzinga.com/files/images/story/2022/06/05/dogecoin_whale.jpg?width=1200&height=800&fit=crop",
+      "language": "en",
+      "published_at": "2022-06-05T16:31:30.000000Z",
+      "source": "benzinga.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "TSLA",
+          "name": "Tesla, Inc.",
+          "exchange": "NASDAQ",
+          "exchange_long": "NASDAQ Stock Exchange",
+          "country": "us",
+          "type": "equity",
+          "industry": "Consumer Cyclical",
+          "match_score": 20.427666,
+          "sentiment_score": 0,
+          "highlights": [
+            {
+              "highlight": "Dogecoin's on-chain activity has finally returned to its relatively normal range after multiple events caused it to show a higher than normal levels of activity for an extended period — first when <em>Tesla</em> <em>Inc</em>. TSLA CEO Elon Musk announced his plan to purchase social media giant Twitter Inc.",
+              "sentiment": 0,
+              "highlighted_in": "main_text"
+            }
+          ]
+        }
+      ],
+      "similar": []
+    },
+    {
+      "uuid": "f343b035-01cc-4b01-9336-91db31134cca",
+      "title": "Accumulation vs retirement investing on the Sunday Reads.",
+      "description": "More money buys more income. We're looking at the accumulation vs retirement investing on the Sunday Reads.",
+      "keywords": "",
+      "snippet": "It is crucial, or at least let’s say that it can be very advantageous to separate the accumulation stage and decumulation stage. We build portfolio wealth as ...",
+      "url": "https://cutthecrapinvesting.com/2022/06/05/accumulation-vs-retirement-investing-on-the-sunday-reads/",
+      "image_url": "https://cutthecrapinvesting.com/wp-content/uploads/2020/02/Retirement-image.jpg",
+      "language": "en",
+      "published_at": "2022-06-05T13:23:37.000000Z",
+      "source": "cutthecrapinvesting.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "TSLA",
+          "name": "Tesla, Inc.",
+          "exchange": "NASDAQ",
+          "exchange_long": "NASDAQ Stock Exchange",
+          "country": "us",
+          "type": "equity",
+          "industry": "Consumer Cyclical",
+          "match_score": 5.633618,
+          "sentiment_score": 0.4404,
+          "highlights": [
+            {
+              "highlight": "Topics include supersized profits at small Canadian banks, GameStop and <em>Tesla</em> earn more headlines than money, alternatives for income investors (again), and more.\n\nLessons of retirement\n\nOn The Retirement Manifesto Fritz offers 4 lessons after 4 years of retirement.",
+              "sentiment": 0.4404,
+              "highlighted_in": "main_text"
+            }
+          ]
+        }
+      ],
+      "similar": []
+    }
+  ]
+}
