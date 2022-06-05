@@ -41,8 +41,7 @@ function CompanyDetails({ ticker, setTicker }) {
         // data = await res.json();
         // setImg(data);
       } catch (error) {
-        console.log("i got an error:" + error);
-        alert("No details found");
+          alert("No details found");
         setLoading("ran");
         setTicker("");
       }

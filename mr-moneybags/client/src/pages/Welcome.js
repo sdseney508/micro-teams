@@ -1,6 +1,7 @@
 //page for creating and updating portfolio
 import React from "react";
 import { Container } from 'react-bootstrap';
+import StockTable from "../components/userPortTable";
 
 const Welcome = () => {
   return (
@@ -15,7 +16,7 @@ const Welcome = () => {
       </Container>
 
       <Container>
-        {/* yahoo news? */}
+        {/* <StockTable/> */}
       </Container>
 
     </>
