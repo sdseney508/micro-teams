@@ -7,7 +7,10 @@ import React, {
   createContext
 } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.css';
+
+// dont need to import this since we actually grab the bootstrap in the index.html when the app loads.
+// import 'bootstrap/dist/css/bootstrap.css';
+
 import { render } from "react-dom";
 import { AgGridReact } from "ag-grid-react"; // the AG Grid React Component
 //Apollo client setup
