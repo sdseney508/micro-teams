@@ -9,13 +9,21 @@ import CompanyDetails from "../components/CompanyDetails";
 import LoadingScreen from "../components/LoadingScreen";
 import StockChart from "../components/StockChart";
 
+// Import "useMutation" hook
+import { useMutation } from "@apollo/client";
+
+// Importing mutations for "mutations.js"
+import { UPDATE_PORTFOLIO } from "../utils/mutations";
+
 const CreatePort = () => {
   const [ticker, setTicker] = useState();
   const shareprice = 10;
+  const { loading, data } = useMutation(UPDATE_PORTFOLIO);
 
   const addToPort = (event) => {
     event.preventDefault();
     //TODO needs to execute the update_port mutation
+    const money = data?.amtleft;
     console.log($('#amount').val());
     const amtleft = amountleft - parseInt($('#amount').val())*shareprice;
     setAmountLeft(amtleft);
@@ -23,6 +31,7 @@ const CreatePort = () => {
     const portObject = $('#symbol').html();
     console.log(portObject);
     console.log(ticker);
+    console.log(money);
   }
 
   const removeFromPort = (event) => {
@@ -30,7 +39,9 @@ const CreatePort = () => {
     //TODO needs to execute the update_port mutation
     console.log($('#rmAmount').val());
     const amtleft = amountleft - parseInt($('#amount').val())*shareprice;
+    const money = data?.amtleft || [];
     setAmountLeft(amtleft);
+    console.log(money);
   }
 
   const [amountleft, setAmountLeft] = useState(10000);
@@ -69,18 +80,22 @@ const CreatePort = () => {
         {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} />  }
         </Col>
       </Row>
-      <div className="bg-light p-5 rounded-lg m-3">
-        <h1 className="display-4">Create and Update your Portfolios</h1>
-        <p className="lead">
-          This is a page for creating and updating portfolios
-        </p>
-        <hr className="my-4"></hr>
-        <p>
-          includes a table for stocks, some stock ticker info, and a search
-          field for finding stocks. There will be add and remove buttons, and a
-          field telling you how much money you have left
-        </p>
-      </div>
+        {loading? (
+              <div>Loading....</div>
+            ): (
+                <div className="bg-light p-5 rounded-lg m-3">
+                  <h1 className="display-4">Create and Update your Portfolios</h1>
+                  <p className="lead">
+                    This is a page for creating and updating portfolios
+                  </p>
+                  <hr className="my-4"></hr>
+                  <p>
+                    includes a table for stocks, some stock ticker info, and a search
+                    field for finding stocks. There will be add and remove buttons, and a
+                    field telling you how much money you have left
+                  </p>
+                </div>
+            )}
 
       <div>
         <p className="lead">Stock table goes here</p>
