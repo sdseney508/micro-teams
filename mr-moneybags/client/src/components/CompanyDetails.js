@@ -62,7 +62,7 @@ function CompanyDetails({ ticker, setTicker }) {
         <p>
           <b>Company Name</b>: {overview.Name}
         </p>
-        <p>
+        <p id="symbol">
           <b>Symbol</b>: {overview.Symbol}
         </p>
         <p>

@@ -40,7 +40,7 @@ function StockChart(ticker) {
   // console.log(ticker);
   //need to use the time_series_daily API and not overview to get the daily values.  then i'll need to use the object.keys thing that Grayden showed us to get the dates and values.  the dates will be the rows and then we'll map to the close values.
   const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker.ticker}&apikey=${APIKEY}`;
-  console.log(URL);
+  // console.log(URL);
   async function fetchData() {
     const res = await fetch(URL);
     const data = await res.json()
