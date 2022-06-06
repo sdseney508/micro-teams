@@ -7,8 +7,7 @@ import { stateContext } from "../App";
 // const APIKEY = "4X2274SBZP3SPX2A";
 const APIKEY = "CCK1IY5CF565MMF9";
 function CompanyDetails({ ticker, setTicker }) {
-  //set the state furst
- 
+  //set the state first
     const [state, setState] = useContext(stateContext);
     // console.log(state);
     // const numeral = require("numeral");
@@ -78,7 +77,7 @@ function CompanyDetails({ ticker, setTicker }) {
           <b>Country</b>: {overview.Country}
         </p>
         Where is my damn chart
-        {/* <StockChart ticker={ticker} /> */}
+        <StockChart ticker={ticker}/>
       </div>,
     ];
 

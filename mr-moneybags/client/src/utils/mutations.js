@@ -51,7 +51,6 @@ export const DELETE_STOCK = gql`
         deleteStock(name: $name) {
             stocks {
                 name
-                dateAdded
                 purchasePrice
                 shares
             }

@@ -8,8 +8,8 @@ import StockChart from "./StockChart";
 
 function SearchBar() {
   //this needs to be replaced with something from the database, but for testing purposes, we will use my API on the front end
-  // const APIKEY = "4X2274SBZP3SPX2A";
-  const APIKEY = "CCK1IY5CF565MMF9";
+  const APIKEY = "4X2274SBZP3SPX2A";
+  // const APIKEY = "CCK1IY5CF565MMF9";
   const [company, setCompany] = useState("");
 
   //bestMatches is an array of objects, each object is a company in the API call return

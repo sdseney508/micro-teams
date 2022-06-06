@@ -58,7 +58,7 @@ function Summary({ dailyShares, overview }) {
           </div>
         </div>
         <div style={{ marginLeft: "80px", paddingBottom: "10px" }}>
-        <StockChart />
+        <StockChart/>
         </div>
       </div>
     </div>
