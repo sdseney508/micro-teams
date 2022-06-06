@@ -2,18 +2,24 @@
 
 import React, { useState, useContext } from "react";
 
-import { Container, Form, Row, Col, Button, Carousel } from "react-bootstrap";
+import Avatar from 'avataaars';
+import { generateRandomAvatarOptions } from "../components/avatar";
+
+import { Container, Row, Col, Carousel, Form, Button, } from "react-bootstrap";
 import { stateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
 import "./user.css";
-import info from "../components/newapi.json";
-
+import newsinfo from "../components/newapi.json";
+import { QUERY_ME } from "../utils/queries";
 import StockTable from "../components/userPortTable";
 import userCarousel from "../components/userCarousel";
+import { useQuery } from "@apollo/client";
 
 const User = () => {
   const [carousel, setCarousel] = useState("");
+  const {loading, error, data} = useQuery( QUERY_ME, {variables: { token: localStorage.getItem('api-token')}} );
+  // let [ data, setData ] = useState(false); 
 
   const goTo = useNavigate();
 
@@ -46,15 +52,26 @@ const User = () => {
         <Row>
           {/* left hand column */}
           <Col sm={4}>
+
             <div className="bg-light p-5 rounded-lg m-3">
-              <h1 className="display-4">User Profile Picture</h1>
+              {/* <Container className="text-white rounded-circle" style={{ width: '150px', height: '150px', background: 'green' }}>
+                <p className="p-0 m-0 text-center" style={avatarStyling}>RS</p> */}
+
+              <Container>
+                <>
+                  <Avatar
+                    style={{ width: '200px', height: '200px' }}
+                    avatarStyle='Circle'
+                    {...generateRandomAvatarOptions()} />
+                </>
+
+              </Container>
               <p className="lead">
-              <Form.Group controlId="formFile" className="mb-3">
-    <Form.Label>Click Here to Upload Avatar</Form.Label>
-    <Form.Control type="file" />
-  </Form.Group>
-                Shows user avatar, API tickers remaining, a button for creating
-                a portfolio
+                {/* <Form.Group controlId="formFile" className="mb-3">
+                  <Form.Label>Click Here to Upload Avatar</Form.Label>
+                  <Form.Control type="file" />
+                </Form.Group> */}
+                Welcome, financially savvy user.
               </p>
               <hr className="my-4"></hr>
               <p></p>
@@ -76,16 +93,20 @@ const User = () => {
 
             <Container>
               <Form.Group className="mb-3">
-                <Form.Label className="">Select Portfolio</Form.Label>
-                <Form.Select>
-                  <option>Portfolio 1</option>
-                  <option>Portfolio 2</option>
-                  <option>Portfolio 3</option>
-                  <option>Portfolio 4</option>
-                </Form.Select>
+
+                {/* DATA RETURNS UNDEFINED */}
+                {/* {data.me.portfolios.length > 0 ?
+                  <>
+                    <Form.Label className="">Select Portfolio</Form.Label>
+                    <Form.Select>
+                    </Form.Select>
+                  </>
+                  :
+                  <p>You have no portfolios</p>
+                } */}
               </Form.Group>
             </Container>
-            <div style= {{color: 'black'}}>
+            <div style={{ color: 'black' }}>
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-sm-12">
@@ -94,18 +115,18 @@ const User = () => {
                 </div>
                 <div className="row">
                   <div className="col-12">
-                    <Carousel style= {{color: 'black'}}>
+                    <Carousel style={{ color: 'black' }}>
                       <Carousel.Item>
-                      
-                        <img className="d-block w-100" 
-                          src={info.data[0].image_url}
+
+                        <img className="d-block w-100"
+                          src={newsinfo.data[0].image_url}
                           alt="First slide"
                         />
                         <Carousel.Caption>
-                          <h3>{info.data[0].title}
+                          <h3>{newsinfo.data[0].title}
                           </h3>
                           <p>
-                          {info.data[0].snippet}
+                            {newsinfo.data[0].snippet}
                           </p>
                         </Carousel.Caption>
                       </Carousel.Item>
@@ -114,26 +135,26 @@ const User = () => {
 
                         <img
                           className="d-block w-100"
-                          src={info.data[1].image_url}
+                          src={newsinfo.data[1].image_url}
                           alt="Second slide"
                         />
                         <Carousel.Caption>
-                        <h3>{info.data[1].title}</h3>
+                          <h3>{newsinfo.data[1].title}</h3>
                           <p>
-                          {info.data[1].snippet}
+                            {newsinfo.data[1].snippet}
                           </p>
                         </Carousel.Caption>
                       </Carousel.Item>
                       <Carousel.Item>
                         <img
                           className="d-block w-100"
-                          src={info.data[2].image_url}
+                          src={newsinfo.data[2].image_url}
                           alt="Third slide"
                         />
                         <Carousel.Caption>
-                        <h3>{info.data[2].title}</h3>
+                          <h3>{newsinfo.data[2].title}</h3>
                           <p>
-                          {info.data[2].snippet}
+                            {newsinfo.data[2].snippet}
                           </p>
                         </Carousel.Caption>
                       </Carousel.Item>
@@ -143,7 +164,7 @@ const User = () => {
               </div>
             </div>
             {/* <userCarousel /> */}
-           </Col>
+          </Col>
         </Row>
         <Row>
           {/* <StockTable /> */}
