@@ -5,26 +5,29 @@ import { stateContext } from "../App";
 import SearchBar from "../components/SearchBar";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
-import SearchCards from "../components/SearchCard";
 import CompanyDetails from "../components/CompanyDetails";
 import LoadingScreen from "../components/LoadingScreen";
 import StockChart from "../components/StockChart";
 
 const CreatePort = () => {
-  const [result, setResult] = useState({ bestMatches: [] });
-  const [loading, setLoading] = useState("");
-  const [ticker, setTicker] = useState("");
+  const [ticker, setTicker] = useState();
   const shareprice = 10;
 
   const addToPort = (event) => {
     event.preventDefault();
+    //TODO needs to execute the update_port mutation
     console.log($('#amount').val());
     const amtleft = amountleft - parseInt($('#amount').val())*shareprice;
     setAmountLeft(amtleft);
+    setTicker(event.target.parentNode.id)
+    const portObject = $('#symbol').html();
+    console.log(portObject);
+    console.log(ticker);
   }
 
   const removeFromPort = (event) => {
     event.preventDefault();
+    //TODO needs to execute the update_port mutation
     console.log($('#rmAmount').val());
     const amtleft = amountleft - parseInt($('#amount').val())*shareprice;
     setAmountLeft(amtleft);
@@ -46,19 +49,19 @@ const CreatePort = () => {
           >
             Add To Port
           </Button>
-          <SearchBar />
-          <Container>
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm='10' className=""># Of Shares For Portfolio</Form.Label>
-              <Form.Control type="text" id='amount' placeholder="# of Shares" />
-            </Form.Group>
-          </Container>
           <Container>
             Amount of Money Left To Build Porfolio:
             <br>
             </br>
             {amountleft}
           </Container>
+          <Container>
+            <Form.Group as={Row} className="mb-3">
+              <Form.Label column sm='10' className=""># Of Shares For Portfolio</Form.Label>
+              <Form.Control type="text" id='amount' placeholder="# of Shares" />
+            </Form.Group>
+          </Container>
+          <SearchBar />
 
         </Col>
         

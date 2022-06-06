@@ -17,10 +17,10 @@ import userCarousel from "../components/userCarousel";
 import { useQuery } from "@apollo/client";
 
 const User = () => {
-  const [carousel, setCarousel] = useState("");
+  // const [carousel, setCarousel] = useState();
   const {loading, error, data} = useQuery( QUERY_ME, {variables: { token: localStorage.getItem('api-token')}} );
   // let [ data, setData ] = useState(false); 
-
+  let carousel;
   const goTo = useNavigate();
 
   const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -31,7 +31,7 @@ const User = () => {
   }
 
   const createPort = (event) => {
-    event.preventDefault();
+    //TODO need to add the mutation to create the portfolio in the database
     console.log("trying to create a portfolio");
     goTo("/createport");
   };
@@ -40,9 +40,11 @@ const User = () => {
   //   const url = `https://api.marketaux.com/v1/news/all?symbols=TSLA%2CAMZN%2CMSFT&filter_entities=true&language=en&api_token=lBI78Ixv5YPqe77AkvXjJwQ35JSh7yxjGeTKTKQw`;
   //   const res = await fetch(url);
   //   const data = await res.json();
-  //   console.log(data.data);
-  //   setCarousel(data.data);
+  //   carousel = data.data;
   //   console.log(carousel);
+  //   // setCarousel(data.data);
+  //   // console.log(carousel);
+  //   return carousel;
   // }
   // carouselData();
 
@@ -90,7 +92,9 @@ const User = () => {
             >
               Create a Portofolio
             </Button>
-
+            <Form.Group as={Row} className="mb-3">
+              <Form.Control type="text" id='port-name' placeholder="New Portfolio Name" />
+            </Form.Group>
             <Container>
               <Form.Group className="mb-3">
 

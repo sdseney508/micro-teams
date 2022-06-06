@@ -72,7 +72,7 @@ function SearchBar() {
         
       </div>
       <div>
-        {ticker && <StockChart ticker={ticker}/>}
+        {/* {ticker && <StockChart ticker={ticker}/>} */}
       </div>
     </div>
   );
