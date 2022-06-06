@@ -29,29 +29,28 @@ ChartJS.register(
   const APIKEY = "CCK1IY5CF565MMF9";
   // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=$f&apikey=4X2274SBZP3SPX2A
 
-
   // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=f&apikey=4X2274SBZP3SPX2A
 
-function StockChart(ticker) {
+function StockChart(props) {
   const [state, setState] = useContext(stateContext);
-  console.log(ticker.ticker);
+  console.log(props.ticker);
   //this must be set by searchBar.  if you dont go to searchBar, it will be undefined.  Need to check with Grayden if this is the case.
-  // const ticker = state.selectedTicker;
+  // const ticker = props.selectedTicker;
   // console.log(ticker);
   //need to use the time_series_daily API and not overview to get the daily values.  then i'll need to use the object.keys thing that Grayden showed us to get the dates and values.  the dates will be the rows and then we'll map to the close values.
-  const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker.ticker}&apikey=${APIKEY}`;
+  const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${props.ticker}&apikey=${APIKEY}`;
   // console.log(URL);
   async function fetchData() {
     const res = await fetch(URL);
     const data = await res.json()
-    .then((data) => {
+    // .then((data) => {
       const dates = Object.keys(data["Time Series (Daily)"]);
       const prices = dates.map((date) => data["Time Series (Daily)"][date]["4. close"]);
       setState({ ...state, dates: dates, prices: prices });
-      console.log(dates);
-      console.log(prices);
-    });
-    console.log(state);
+      // console.log(dates);
+      // console.log(prices);
+    // });
+    // console.log(state);
   }
 
   useEffect(() => {
@@ -85,12 +84,15 @@ function StockChart(ticker) {
   };
 
   const stockChartData = state.prices;
-  const chartLabels = state.dates
+  const reversed = stockChartData.reverse();
+  console.log(stockChartData);
+  const chartLabels = state.dates;
+  // chartLabels.reverse();
   const data = {
     labels: chartLabels,
     datasets: [
       {
-        label: ticker,
+        label: props.ticker,
         //use the closing values here.  for an icebox project we could look at displaying the open, close, high, low all on the same display so people could look at volatility.  We could also look at displaying other charts liek volume and average volume.
         data: stockChartData,
         borderColor: "black",
@@ -98,7 +100,7 @@ function StockChart(ticker) {
       },
     ],
   };
-
+console.log(data);
   //use a ternary to check if the data is loaded or return an error message.
   return stockChartData ? (
     <Line options={options} data={data} />
