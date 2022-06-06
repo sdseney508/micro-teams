@@ -73,7 +73,7 @@ const User = () => {
                   <Form.Label>Click Here to Upload Avatar</Form.Label>
                   <Form.Control type="file" />
                 </Form.Group> */}
-                Welcome, financially savvy user.
+                Welcome, financially savvy user
               </p>
               <hr className="my-4"></hr>
               <p></p>

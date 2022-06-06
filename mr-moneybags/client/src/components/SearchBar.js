@@ -5,6 +5,7 @@ import SearchCards from "./SearchCard";
 import CompanyDetails from "./CompanyDetails";
 import LoadingScreen from "./LoadingScreen";
 import StockChart from "./StockChart";
+import {  Button, } from "react-bootstrap";
 
 function SearchBar() {
   //this needs to be replaced with something from the database, but for testing purposes, we will use my API on the front end
@@ -52,7 +53,7 @@ function SearchBar() {
           value={company}
           onChange={(event) => setCompany(event.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button variant="secondary">Submit</button>
       </form>
       <br />
       <div style={{ display: "flex", alignItems: "flex-start" }}>
