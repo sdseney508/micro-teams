@@ -34,22 +34,22 @@ ChartJS.register(
 
 function StockChart(ticker) {
   const [state, setState] = useContext(stateContext);
+  console.log(ticker.ticker);
   //this must be set by searchBar.  if you dont go to searchBar, it will be undefined.  Need to check with Grayden if this is the case.
   // const ticker = state.selectedTicker;
   // console.log(ticker);
   //need to use the time_series_daily API and not overview to get the daily values.  then i'll need to use the object.keys thing that Grayden showed us to get the dates and values.  the dates will be the rows and then we'll map to the close values.
-  const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${APIKEY}`;
-
+  const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker.ticker}&apikey=${APIKEY}`;
+  console.log(URL);
   async function fetchData() {
     const res = await fetch(URL);
     const data = await res.json()
     .then((data) => {
-
       const dates = Object.keys(data["Time Series (Daily)"]);
       const prices = dates.map((date) => data["Time Series (Daily)"][date]["4. close"]);
       setState({ ...state, dates: dates, prices: prices });
-      // console.log(dates);
-      // console.log(prices);
+      console.log(dates);
+      console.log(prices);
     });
     console.log(state);
   }
