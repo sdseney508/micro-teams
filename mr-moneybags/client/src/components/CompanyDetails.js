@@ -6,7 +6,7 @@ import { stateContext } from "../App";
 // const APIKEY = "4X2274SBZP3SPX2A";
 const APIKEY = "CCK1IY5CF565MMF9";
 
-function CompanyDetails({ ticker, setTicker, prevTicker, setPrevTicker }) {
+function CompanyDetails({ ticker, setTicker }) {
   //set the state first
     const [state, setState] = useContext(stateContext);
     console.log('ticker: ');
@@ -15,8 +15,7 @@ function CompanyDetails({ ticker, setTicker, prevTicker, setPrevTicker }) {
     const URL = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${APIKEY}`;
     const [overview, setOverview] = useState({});
     const [loading, setLoading] = useState("");
-    console.log('Previous Ticker');
-    console.log(prevTicker);
+    const [prevTicker, setPrevTicker] = useState("");
 
     async function getStockInfo() {
       try {
@@ -33,7 +32,7 @@ function CompanyDetails({ ticker, setTicker, prevTicker, setPrevTicker }) {
       }
     }
     //check to see if we selected something new to pull up
-    if (state.prevTicker !== state.ticker) {
+    if (prevTicker !== ticker) {
       debugger;
       //reset my stock name
       setPrevTicker(ticker);

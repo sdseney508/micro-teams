@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import SearchCards from "./SearchCard";
 import CompanyDetails from "./CompanyDetails";
 import LoadingScreen from "./LoadingScreen";
@@ -13,7 +13,7 @@ function SearchBar() {
   //bestMatches is an array of objects, each object is a company in the API call return
   const [result, setResult] = useState({ bestMatches: [] });
   const [loading, setLoading] = useState("");
-  const [prevTicker, setPrevTicker] = useState("");
+  // const [prevTicker, setPrevTicker] = useState("");
   const [ticker, setTicker] = useState("");
 
   async function fetchData() {
@@ -23,7 +23,6 @@ function SearchBar() {
     // console.log(data);
     setResult(data);
     setLoading("ran");
-    setTicker(company);
   }
 
   const handleSubmit = (event) => {
@@ -31,8 +30,9 @@ function SearchBar() {
     event.target[0].value = "";
     //give people a cool loading spinner i found at:  https://dev.to/codebucks/create-3-different-types-of-loading-screens-in-react-part-3-2o51
     setLoading("loading");
-    // goTo("/search");
     fetchData();
+    console.log('ticker: ');
+    console.log(ticker);
   };
 
   if (loading === "loading") {
@@ -50,7 +50,7 @@ function SearchBar() {
           value={company}
           onChange={(event) => setCompany(event.target.value)}
         />
-        <button variant="secondary">Submit</button>
+        <button type='submit'>Submit</button>
       </form>
       <br />
       <div style={{ display: "flex", alignItems: "flex-start" }}>
@@ -66,7 +66,7 @@ function SearchBar() {
           <SearchCards result={result} setTicker={setTicker} ticker={ticker} />
         </div>
 
-        {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} prevTicker={prevTicker} setPrevTicker={setPrevTicker}/>  }
+        {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} />  }
         
       </div>
       <div>
