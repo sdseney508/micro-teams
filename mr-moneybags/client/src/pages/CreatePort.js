@@ -25,7 +25,7 @@ const CreatePort = () => {
     //TODO needs to execute the update_port mutation
     const money = data?.amtleft;
     console.log($('#amount').val());
-    const amtleft = amountleft - parseInt($('#amount').val())*shareprice;
+    const amtleft = amountleft - parseInt($('#amount').val()) * shareprice;
     setAmountLeft(amtleft);
     setTicker(event.target.parentNode.id)
     const portObject = $('#symbol').html();
@@ -38,7 +38,7 @@ const CreatePort = () => {
     event.preventDefault();
     //TODO needs to execute the update_port mutation
     console.log($('#rmAmount').val());
-    const amtleft = amountleft - parseInt($('#amount').val())*shareprice;
+    const amtleft = amountleft - parseInt($('#amount').val()) * shareprice;
     const money = data?.amtleft || [];
     setAmountLeft(amtleft);
     console.log(money);
@@ -47,60 +47,63 @@ const CreatePort = () => {
   const [amountleft, setAmountLeft] = useState(10000);
 
   return (
-    <Container>
-      <Row>
-        <Col sm={10}>
-          <Button
-            variant="primary"
-            size="md"
-            id="create-port-btn"
-            className="cst-button"
-            onClick={(event) => addToPort(event)}
-            style={{ textAlign: "center" }}
-          >
-            Add To Port
-          </Button>
-          <Container>
-            Amount of Money Left To Build Porfolio:
-            <br>
-            </br>
-            {amountleft}
-          </Container>
-          <Container>
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm='10' className=""># Of Shares For Portfolio</Form.Label>
-              <Form.Control type="text" id='amount' placeholder="# of Shares" />
-            </Form.Group>
-          </Container>
-          <SearchBar />
+    <>
+      <Container>
+        <Row>
+          {loading ? (
+            <div>Loading....</div>
+          ) : (
+            <div className="bg-light p-5 rounded-lg m-3">
+              <h1 className="display-4">Create and Update your Portfolio</h1>
+              <p className="lead">
+                Stocks only go up.....right?
+              </p>
+              <hr className="my-4"></hr>
+            </div>
+          )}
+        </Row>
+        <Row>
+          <Col sm={10}>
+            <Button
+              variant="primary"
+              size="md"
+              id="create-port-btn"
+              className="cst-button"
+              onClick={(event) => addToPort(event)}
+              style={{ textAlign: "center" }}
+            >
+              Add To Port
+            </Button>
+            <Container>
+              Amount of Money Left To Build Porfolio:
+              <br>
+              </br>
+              {amountleft}
+            </Container>
+            <Container>
+              <Form.Group as={Row} className="mb-3">
+                <Form.Label column sm='10' className=""># Of Shares For Portfolio</Form.Label>
+                <Form.Control type="text" id='amount' placeholder="# of Shares" />
+              </Form.Group>
+            </Container>
+            <SearchBar />
 
-        </Col>
-        
-        <Col sm={6}>
-        {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} />  }
-        </Col>
-      </Row>
-        {loading? (
-              <div>Loading....</div>
-            ): (
-                <div className="bg-light p-5 rounded-lg m-3">
-                  <h1 className="display-4">Create and Update your Portfolios</h1>
-                  <p className="lead">
-                    This is a page for creating and updating portfolios
-                  </p>
-                  <hr className="my-4"></hr>
-                  <p>
-                    includes a table for stocks, some stock ticker info, and a search
-                    field for finding stocks. There will be add and remove buttons, and a
-                    field telling you how much money you have left
-                  </p>
-                </div>
-            )}
+          </Col>
 
+          <Col sm={6}>
+            {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} />}
+          </Col>
+        </Row>
+
+      </Container>
       <div>
-        <p className="lead">Stock table goes here</p>
+        {/* STOCK TABLE GOES HERE */}
       </div>
-    </Container>
+      <Container>
+
+      </Container>
+    </>
+
   );
 };
 
