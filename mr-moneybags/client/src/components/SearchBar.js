@@ -50,7 +50,7 @@ function SearchBar() {
           value={company}
           onChange={(event) => setCompany(event.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button variant="secondary">Submit</button>
       </form>
       <br />
       <div style={{ display: "flex", alignItems: "flex-start" }}>
