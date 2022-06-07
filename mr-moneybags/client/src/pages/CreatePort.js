@@ -9,16 +9,41 @@ import CompanyDetails from "../components/CompanyDetails";
 import LoadingScreen from "../components/LoadingScreen";
 import StockChart from "../components/StockChart";
 
+// Import Auth module
+import Auth from "../utils/auth";
+
 // Import "useMutation" hook
 import { useMutation } from "@apollo/client";
 
 // Importing mutations for "mutations.js"
 import { UPDATE_PORTFOLIO } from "../utils/mutations";
+import { deletePortName } from "../utils/localStorage";
 
 const CreatePort = () => {
   const [ticker, setTicker] = useState();
   const shareprice = 10;
+
   const { loading, data } = useMutation(UPDATE_PORTFOLIO);
+  const userData = data?.me || {};
+
+  const [deletePortfolio, { error }] = useMutation(UPDATE_PORTFOLIO);
+
+  const handlePortDelete = async (portfolioName) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      await deletePortfolio({
+        variables: {portfolioName: portfolioName}
+      })
+      deletePortName(portfolioName);
+    } catch (err) {
+      console.error(error);
+    }
+  }
 
   const addToPort = (event) => {
     event.preventDefault();
