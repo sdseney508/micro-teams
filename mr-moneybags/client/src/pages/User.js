@@ -15,6 +15,7 @@ import { QUERY_ME } from "../utils/queries";
 import StockTable from "../components/userPortTable";
 import userCarousel from "../components/userCarousel";
 import { useQuery } from "@apollo/client";
+import $ from "jquery";
 
 const User = () => {
   // const [carousel, setCarousel] = useState();
@@ -32,6 +33,10 @@ const User = () => {
 
   const createPort = (event) => {
     //TODO need to add the mutation to create the portfolio in the database
+    if(!$('#port-name').val()) {
+      alert("Please enter a portfolio name");
+      return;
+    }
     console.log("trying to create a portfolio");
     goTo("/createport");
   };
@@ -82,6 +87,7 @@ const User = () => {
 
           {/* right hand column */}
           <Col sm={8} style={{ textAlign: "center" }}>
+            <Form.Group as={Row} className="mb-3">
             <Button
               variant="primary"
               size="lg"
@@ -92,7 +98,6 @@ const User = () => {
             >
               Create a Portofolio
             </Button>
-            <Form.Group as={Row} className="mb-3">
               <Form.Control type="text" id='port-name' placeholder="New Portfolio Name" />
             </Form.Group>
             <Container>
@@ -167,11 +172,7 @@ const User = () => {
                 </div>
               </div>
             </div>
-            {/* <userCarousel /> */}
           </Col>
-        </Row>
-        <Row>
-          {/* <StockTable /> */}
         </Row>
       </Container>
     </>

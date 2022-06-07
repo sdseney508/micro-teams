@@ -78,12 +78,6 @@ function App() {
                 <Route path="/viewport" element={<ViewPort />} />
                 <Route path="/createport" element={<CreatePort />} />
                 <Route path="/user" element={<User />} />
-                <Route path="/search" element={<SearchBar />} />
-                  <Route path="/summary" element={<Summary 
-                        overview={state.companyData}
-                        dailyShares={state.dailyShares}
-                        />
-                      } />
                 <Route path="*"
                   element={<h1 className="display-2">Sorry Chief - Wrong page!</h1>}
                   />

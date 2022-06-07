@@ -8,8 +8,7 @@ function SearchCards({ result, setTicker, ticker }) {
   const handleClick = (event) => {
     // event.preventDefault();
     console.log("i'm in the handle click");
-    console.log(ticker);
-    console.log(event.target.parentNode.id);
+
     if (ticker !== event.target.parentNode.id) {
       const parentID = event.target.parentNode.id;
       setTicker(parentID);

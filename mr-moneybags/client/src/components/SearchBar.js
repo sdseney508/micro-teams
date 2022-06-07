@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
 import SearchCards from "./SearchCard";
 import CompanyDetails from "./CompanyDetails";
 import LoadingScreen from "./LoadingScreen";
-import StockChart from "./StockChart";
-import {  Button, } from "react-bootstrap";
 
 function SearchBar() {
   //this needs to be replaced with something from the database, but for testing purposes, we will use my API on the front end
@@ -16,8 +13,7 @@ function SearchBar() {
   //bestMatches is an array of objects, each object is a company in the API call return
   const [result, setResult] = useState({ bestMatches: [] });
   const [loading, setLoading] = useState("");
-  //TODO: need to find this in the API call still or use another API call to get the company name.  Right now i cant get this to work in the CompanyDetails component.  i cant get the object to destructure and fill out the card.
-  //fixed on 4 Jun 2022.  Homeschool
+  const [prevTicker, setPrevTicker] = useState("");
   const [ticker, setTicker] = useState("");
 
   async function fetchData() {
@@ -27,6 +23,7 @@ function SearchBar() {
     // console.log(data);
     setResult(data);
     setLoading("ran");
+    setTicker(company);
   }
 
   const handleSubmit = (event) => {
@@ -69,11 +66,10 @@ function SearchBar() {
           <SearchCards result={result} setTicker={setTicker} ticker={ticker} />
         </div>
 
-        {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} />  }
+        {ticker && <CompanyDetails ticker={ticker} setTicker={setTicker} prevTicker={prevTicker} setPrevTicker={setPrevTicker}/>  }
         
       </div>
       <div>
-        {/* {ticker && <StockChart ticker={ticker}/>} */}
       </div>
     </div>
   );

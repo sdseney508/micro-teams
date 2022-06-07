@@ -1,25 +1,22 @@
 import React, { useContext, useState } from "react";
 import LoadingScreen from "./LoadingScreen";
 import StockChart from "./StockChart";
-import DetailsModal from "./DetailsModal";
 import { stateContext } from "../App";
 
 // const APIKEY = "4X2274SBZP3SPX2A";
 const APIKEY = "CCK1IY5CF565MMF9";
-function CompanyDetails({ ticker, setTicker }) {
+
+function CompanyDetails({ ticker, setTicker, prevTicker, setPrevTicker }) {
   //set the state first
     const [state, setState] = useContext(stateContext);
-    // console.log(state);
-    // const numeral = require("numeral");
-    //https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${APIKEY}
-    //https://www.alphavantage.co/query?function=OVERVIEW&symbol=TSLAX&apikey=$4X2274SBZP3SPX2A
-    //https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo
+    console.log('ticker: ');
+    console.log(ticker);
   
     const URL = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${APIKEY}`;
     const [overview, setOverview] = useState({});
-    const [img, setImg] = useState("");
     const [loading, setLoading] = useState("");
-    const [prevTicker, setPrevTicker] = useState("");
+    console.log('Previous Ticker');
+    console.log(prevTicker);
 
     async function getStockInfo() {
       try {
@@ -27,27 +24,21 @@ function CompanyDetails({ ticker, setTicker }) {
         let data = await res.json();
 
         setState({ ...state, selectedTicker: ticker });
-
         setOverview(data);
-
         setLoading("ran");
-
-        // data = await res.json();
-        // setImg(data);
       } catch (error) {
-          alert("No details found");
+        alert("No details found");
         setLoading("ran");
         setTicker("");
       }
     }
     //check to see if we selected something new to pull up
-    if (prevTicker !== ticker) {
+    if (state.prevTicker !== state.ticker) {
+      debugger;
       //reset my stock name
       setPrevTicker(ticker);
       //get company data function
       getStockInfo();
-
-      //TODO:  use this to make my overview card; but it's not working with my API key
       setOverview(overview);
       setLoading("loading");
     }
@@ -107,7 +98,6 @@ function CompanyDetails({ ticker, setTicker }) {
                 >
                   <h2>{overview.Name || "Not a valid US Company.  Please Select a different ticker."}</h2>
                   <div style={{ margin: "auto 0" }}>
-                    <img src={img.url} alt="" style={{ width: "60px" }} />
                   </div>
                 </div>
 
