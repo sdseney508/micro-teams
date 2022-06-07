@@ -33,12 +33,11 @@ function CompanyDetails({ ticker, setTicker }) {
     }
     //check to see if we selected something new to pull up
     if (prevTicker !== ticker) {
-      debugger;
       //reset my stock name
       setPrevTicker(ticker);
       //get company data function
       getStockInfo();
-      setOverview(overview);
+      // setOverview(overview);
       setLoading("loading");
     }
 

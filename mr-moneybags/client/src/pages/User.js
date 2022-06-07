@@ -2,43 +2,49 @@
 
 import React, { useState, useContext } from "react";
 
-import Avatar from 'avataaars';
+import Avatar from "avataaars";
 import { generateRandomAvatarOptions } from "../components/avatar";
 
-import { Container, Row, Col, Carousel, Form, Button, } from "react-bootstrap";
+import { Container, Row, Col, Carousel, Form, Button } from "react-bootstrap";
 import { stateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
 import "./user.css";
 import newsinfo from "../components/newapi.json";
 import { QUERY_ME } from "../utils/queries";
-import StockTable from "../components/userPortTable";
-import userCarousel from "../components/userCarousel";
 import { useQuery } from "@apollo/client";
 import $ from "jquery";
+// Import "useMutation" hook
+import { useMutation } from "@apollo/client";
+// Importing mutations for "mutations.js"
+import { ADD_PORTFOLIO } from "../utils/mutations";
 
 const User = () => {
-  // const [carousel, setCarousel] = useState();
-  const {loading, error, data} = useQuery( QUERY_ME, {variables: { token: localStorage.getItem('api-token')}} );
-  // let [ data, setData ] = useState(false); 
-  let carousel;
+  const { loading, error, data } = useQuery(QUERY_ME, {
+    variables: { token: localStorage.getItem("api-token") },
+  });
+
+  const [ addPort, {error: error2}] = useMutation(ADD_PORTFOLIO);
+
   const goTo = useNavigate();
 
-  const token = Auth.loggedIn() ? Auth.getToken() : null;
+  const userinfo = data?.me || {};
 
+  console.log(userinfo);
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
 
   if (!token) {
     return false;
   }
-
-  const createPort = (event) => {
+const createPort = () => {
     //TODO need to add the mutation to create the portfolio in the database
-    if(!$('#port-name').val()) {
+    if (!$("#port-name").val()) {
       alert("Please enter a portfolio name");
       return;
     }
+    goTo("/createPort");
     console.log("trying to create a portfolio");
-    goTo("/createport");
+    
   };
 
   // async function carouselData() {
@@ -59,7 +65,6 @@ const User = () => {
         <Row>
           {/* left hand column */}
           <Col sm={4}>
-
             <div className="bg-light p-5 rounded-lg m-3">
               {/* <Container className="text-white rounded-circle" style={{ width: '150px', height: '150px', background: 'green' }}>
                 <p className="p-0 m-0 text-center" style={avatarStyling}>RS</p> */}
@@ -67,17 +72,13 @@ const User = () => {
               <Container>
                 <>
                   <Avatar
-                    style={{ width: '200px', height: '200px' }}
-                    avatarStyle='Circle'
-                    {...generateRandomAvatarOptions()} />
+                    style={{ width: "200px", height: "200px" }}
+                    avatarStyle="Circle"
+                    {...generateRandomAvatarOptions()}
+                  />
                 </>
-
               </Container>
               <p className="lead">
-                {/* <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>Click Here to Upload Avatar</Form.Label>
-                  <Form.Control type="file" />
-                </Form.Group> */}
                 Welcome, financially savvy user.
               </p>
               <hr className="my-4"></hr>
@@ -88,7 +89,7 @@ const User = () => {
           {/* right hand column */}
           <Col sm={8} style={{ textAlign: "center" }}>
             <Form.Group as={Row} className="mb-3">
-            <Button
+              <Button
               variant="primary"
               size="lg"
               id="create-port-btn"
@@ -98,11 +99,14 @@ const User = () => {
             >
               Create a Portofolio
             </Button>
-              <Form.Control type="text" id='port-name' placeholder="New Portfolio Name" />
+              <Form.Control
+                type="text"
+                id="port-name"
+                placeholder="New Portfolio Name"
+              />
             </Form.Group>
             <Container>
               <Form.Group className="mb-3">
-
                 {/* DATA RETURNS UNDEFINED */}
                 {/* {data.me.portfolios.length > 0 ?
                   <>
@@ -115,7 +119,7 @@ const User = () => {
                 } */}
               </Form.Group>
             </Container>
-            <div style={{ color: 'black' }}>
+            <div style={{ color: "black" }}>
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-sm-12">
@@ -124,24 +128,20 @@ const User = () => {
                 </div>
                 <div className="row">
                   <div className="col-12">
-                    <Carousel style={{ color: 'black' }}>
+                    <Carousel style={{ color: "black" }}>
                       <Carousel.Item>
-
-                        <img className="d-block w-100"
+                        <img
+                          className="d-block w-100"
                           src={newsinfo.data[0].image_url}
                           alt="First slide"
                         />
                         <Carousel.Caption>
-                          <h3>{newsinfo.data[0].title}
-                          </h3>
-                          <p>
-                            {newsinfo.data[0].snippet}
-                          </p>
+                          <h3>{newsinfo.data[0].title}</h3>
+                          <p>{newsinfo.data[0].snippet}</p>
                         </Carousel.Caption>
                       </Carousel.Item>
 
                       <Carousel.Item>
-
                         <img
                           className="d-block w-100"
                           src={newsinfo.data[1].image_url}
@@ -149,9 +149,7 @@ const User = () => {
                         />
                         <Carousel.Caption>
                           <h3>{newsinfo.data[1].title}</h3>
-                          <p>
-                            {newsinfo.data[1].snippet}
-                          </p>
+                          <p>{newsinfo.data[1].snippet}</p>
                         </Carousel.Caption>
                       </Carousel.Item>
                       <Carousel.Item>
@@ -162,9 +160,7 @@ const User = () => {
                         />
                         <Carousel.Caption>
                           <h3>{newsinfo.data[2].title}</h3>
-                          <p>
-                            {newsinfo.data[2].snippet}
-                          </p>
+                          <p>{newsinfo.data[2].snippet}</p>
                         </Carousel.Caption>
                       </Carousel.Item>
                     </Carousel>

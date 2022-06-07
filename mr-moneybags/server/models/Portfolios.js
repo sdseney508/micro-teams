@@ -2,10 +2,6 @@ const { Schema, Types, model } = require("mongoose");
 
 // Changes made: Turned portfolioSchema into Portfolios model
 const portfolioSchema = new Schema({
-    portfolioId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
-      },
     portfolioName: {
         type: String,
         max_length: 30,

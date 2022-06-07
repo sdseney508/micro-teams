@@ -8,6 +8,7 @@ export const QUERY_ME = gql`
             _id
             email
             portfolios {
+                _id
                 portfolioName
                 stocks {
                     name 
