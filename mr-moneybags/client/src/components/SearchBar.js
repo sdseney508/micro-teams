@@ -28,6 +28,8 @@ function SearchBar() {
   const handleSubmit = (event) => {
     event.preventDefault();
     event.target[0].value = "";
+    setResult({ bestMatches: [] });
+    setTicker('');
     //give people a cool loading spinner i found at:  https://dev.to/codebucks/create-3-different-types-of-loading-screens-in-react-part-3-2o51
     setLoading("loading");
     fetchData();

@@ -34,8 +34,8 @@ export const ADD_PORTFOLIO = gql`
 `;
 
 export const UPDATE_PORTFOLIO = gql`
-    mutation updatePortfolio($portfolioName: String!) {
-        updatePortfolio(portfolioName: $portfolioName) {
+    mutation updatePortfolio($_id: ID!, $stock: StockInput!) {
+        updatePortfolio(_id: $_id, stock: $stock) {
             portfolioName
             stocks {
                 name 
@@ -47,8 +47,8 @@ export const UPDATE_PORTFOLIO = gql`
 `;
 
 export const DELETE_STOCK = gql`
-    mutation deleteStock($name: String!) {
-        deleteStock(name: $name) {
+    mutation deleteStock($_id: ID!, $name: String!) {
+        deleteStock(_id: $_id, name: $name) {
             stocks {
                 name
                 purchasePrice

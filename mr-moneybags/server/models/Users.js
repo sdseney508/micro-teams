@@ -25,7 +25,6 @@ const userSchema = new Schema(
       portfolios: [
         {
           type: Schema.Types.ObjectId,
-          // ref: 'portfolioSchema',
           ref: 'portfolios',
         }
       ],

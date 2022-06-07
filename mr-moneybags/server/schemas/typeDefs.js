@@ -10,11 +10,18 @@ const typeDefs = gql`
   }
 
   type Portfolio {
+    _id: ID
     portfolioName: String!
     stocks: [Stock]
   }
 
   type Stock {  
+    name: String!
+    purchasePrice: Float!
+    shares: Int!
+  }
+
+  input StockInput {  
     name: String!
     purchasePrice: Float!
     shares: Int!
@@ -35,8 +42,8 @@ const typeDefs = gql`
     addUser( email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth
     addPortfolio(portfolioName: String!): User
-    updatePortfolio(portfolioName: String!): User
-    deleteStock(name: String!): User
+    updatePortfolio(_id: ID!, stock: StockInput!): User
+    deleteStock(_id: ID!, name: String!): User
   }
 `;
 

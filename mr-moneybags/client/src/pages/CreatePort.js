@@ -14,7 +14,7 @@ import { UPDATE_PORTFOLIO } from "../utils/mutations";
 const CreatePort = () => {
   const [ticker, setTicker] = useState();
   const shareprice = 10;
-  const { loading, data } = useMutation(UPDATE_PORTFOLIO);
+  // const [ addToPort, {error: error2}] = useMutation(UPDATE_PORTFOLIO);
 
   const addToPort = (event) => {
     event.preventDefault();
@@ -22,16 +22,16 @@ const CreatePort = () => {
       alert("Please enter both Stock Ticker and Number of Shares");
       return;
     }
+
     //TODO needs to execute the update_port mutation
-    const money = data?.amtleft;
+    // const money = data?.amtleft;
     console.log($('#amount').val());
     const amtleft = amountleft - parseInt($('#amount').val()) * shareprice;
     setAmountLeft(amtleft);
     setTicker(event.target.parentNode.id)
     const portObject = $('#symbol').html();
-    console.log(portObject);
-    console.log(ticker);
-    console.log(money);
+
+    
   }
 
   const removeFromPort = (event) => {
@@ -39,9 +39,9 @@ const CreatePort = () => {
     //TODO needs to execute the update_port mutation
     console.log($('#rmAmount').val());
     const amtleft = amountleft - parseInt($('#amount').val()) * shareprice;
-    const money = data?.amtleft || [];
+    // const money = data?.amtleft || [];
     setAmountLeft(amtleft);
-    console.log(money);
+    // console.log(money);
   }
 
   const [amountleft, setAmountLeft] = useState(10000);
@@ -50,7 +50,7 @@ const CreatePort = () => {
     <>
       <Container>
         <Row>
-          {loading ? (
+          {/* {loading ? (
             <div>Loading....</div>
           ) : (
             <div className="bg-light p-5 rounded-lg m-3">
@@ -60,7 +60,7 @@ const CreatePort = () => {
               </p>
               <hr className="my-4"></hr>
             </div>
-          )}
+          )} */}
         </Row>
         <Row>
           <Col sm={10}>

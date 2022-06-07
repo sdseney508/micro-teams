@@ -53,12 +53,12 @@ const resolvers = {
     addPortfolio: async (parent, args, context) => {
       if (context.user) {
         const portfolio = await Portfolios.create({
-          portfolioName: context.user.portfolioName
+          portfolioName: args.portfolioName
         });
 
         const user = await Users.findOneAndUpdate(
           {_id: context.user._id},
-          {$addToSet: { portfolios: portfolio }},
+          {$addToSet: { portfolios: portfolio._id }},
           {new: true}
         );
         return user;
@@ -67,38 +67,39 @@ const resolvers = {
     },
 
     // Mutation for updating portfolios with the stock information
-    updatePortfolio: async (parent, { portfolioName, stocks }, context) => {
+    updatePortfolio: async (parent, { _id, stock }, context) => {
       if (context.user) {
         const updatePort = await Portfolios.findOneAndUpdate(
-          portfolioName, 
-          {$push: {stocks: stocks}},
+          _id, 
+          {$push: {stocks: stock}},
           {new: true}
         );
-        const user = await Users.findOneAndUpdate(
-          {_id: context.user._id},
-          {$addToSet: {portfolios: updatePort}},
-          {new: true}
-        );
-        return user;
+        // const user = await Users.findOneAndUpdate(
+        //   {_id: context.user._id},
+        //   {$addToSet: {portfolios: updatePort}},
+        //   {new: true}
+        // );
+        return updatePort;
       }
       throw new AuthenticationError('You must be logged in!')
     },
 
     // Mutation for deleting stocks from an existing portfolio
-    deleteStock: async (parent, { portfolioName, stocks }, context) => {
+    deleteStock: async (parent, { _id, stock }, context) => {
       if (context.user) {
         const updatedPort = await Portfolios.findOneAndUpdate(
-          portfolioName,
-          {$pull: {stocks: stocks}},
+          _id,
+          // check the syntax for the pull to look for the stock name
+          {$pull: {stocks: stock}},
           {new: true}
         );
 
-        const user = await Users.findByIdAndUpdate(
-          {_id: context.user._id},
-          {$addToSet: {portfolios: updatedPort}},
-          {new: true}
-        );
-        return user;
+        // const user = await Users.findByIdAndUpdate(
+        //   {_id: context.user._id},
+        //   {$addToSet: {portfolios: updatedPort}},
+        //   {new: true}
+        // );
+        return updatedPort;
       }
       throw new AuthenticationError('You must be logged in!')
     }
