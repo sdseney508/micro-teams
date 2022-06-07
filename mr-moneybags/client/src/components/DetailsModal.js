@@ -33,6 +33,7 @@ function Details({ ticker }) {
   }
 
   const [show, setShow] = useState(true);
+  
   const handleClick = () => {
     //toggle the show state
     setShow(!show);

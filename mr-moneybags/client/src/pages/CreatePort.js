@@ -1,13 +1,9 @@
 //page for creating and updating portfolio
 import React, { useState, useContext } from "react";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import { stateContext } from "../App";
 import SearchBar from "../components/SearchBar";
 import $ from "jquery";
-import { useNavigate } from "react-router-dom";
 import CompanyDetails from "../components/CompanyDetails";
-import LoadingScreen from "../components/LoadingScreen";
-import StockChart from "../components/StockChart";
 
 const CreatePort = () => {
   const [ticker, setTicker] = useState();
@@ -15,6 +11,10 @@ const CreatePort = () => {
 
   const addToPort = (event) => {
     event.preventDefault();
+    if(!($('#amount').val() && $('#symbol').html())) {
+      alert("Please enter both Stock Ticker and Number of Shares");
+      return;
+    }
     //TODO needs to execute the update_port mutation
     console.log($('#amount').val());
     const amtleft = amountleft - parseInt($('#amount').val())*shareprice;
