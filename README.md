@@ -66,10 +66,10 @@ Github: https://github.com/sdseney508
 
 ## Testing
 
-has been tested on multiple repos. badge will not be displayed properly if a pre-exiting repo has not been created yet. best use case here is to set up a repo, choose a license, and then build up this ReadMe with info as it becomes available.
+ongoing...
 
 ## License
 
-This project and it's contents are licensed under: MIT
+This project and it's contents are currently unlicensed 
 
 --------
