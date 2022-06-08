@@ -37,7 +37,7 @@ export const QUERY_PORTFOLIOS = gql`
 
 // Query for a single portfolio
 export const QUERY_SINGLE_PORTFOLIO = gql`
-query getPortfolio($portfolioName: String!) {
+query getPortfolio($_id: ID!) {
     getPortfolio(portfolioName: $portfolioName) {
             portfolioName
             stocks {

@@ -12,7 +12,7 @@ import { useMutation } from "@apollo/client";
 // Importing mutations for "mutations.js"
 import { UPDATE_PORTFOLIO } from "../utils/mutations";
 
-const CreatePort = (id) => {
+const CreatePort = () => {
   const [state, setState] = useContext(stateContext);
   console.log(state.portfolio);
   const [ticker, setTicker] = useState();
