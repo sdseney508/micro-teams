@@ -1,11 +1,10 @@
 //page with avatar image, portfoluo summary, stock news of the day
-
 import React, { useState, useContext } from "react";
-
 // import Avatar from "avataaars";
 // import { generateRandomAvatarOptions } from "../components/avatar";
 
 import { Container, Row, Col, Carousel, Form, Button, Dropdown } from "react-bootstrap";
+
 import { stateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
@@ -24,14 +23,14 @@ const User = () => {
     variables: { token: localStorage.getItem("api-token") },
   });
 
+
+  const [state, setState] = useContext(stateContext);
+  const [ addPort, {error: error2}] = useMutation(ADD_PORTFOLIO);
+  const [portName, setPortName] = useState('');
   if (data) {
     console.log(data.me.portfolios[0].portfolioName);
   }
 
-
-  // const { loading, error3, data } = useQuery(getPortfolios)
-
-  const [addPort, { error: error2 }] = useMutation(ADD_PORTFOLIO,);
 
   const goTo = useNavigate();
 
@@ -44,21 +43,24 @@ const User = () => {
     return false;
   }
   const createPort = async () => {
-    //TODO need to add the mutation to create the portfolio in the database
     if (!$("#port-name").val()) {
       alert("Please enter a portfolio name");
       return;
     }
     try {
       let port_name = $("#port-name").val();
-      console.log(port_name);
       const { data } = await addPort({
-        variables: { portfolioName: port_name, token: token },
-      })
-      console.log(userinfo);
 
-      console.log("trying to create a portfolio");
+        variables: {portfolioName: port_name, token: token},
+        })
+        console.log(data);
+        const p_id = Object.values(data?.addPortfolio?._id).join('');
+        setState({...state, portfolio: p_id});
 
+        goTo("/createPort", {state});
+      if(!data) {
+       console.log("something went wrong");
+      }
       if (!data) {
         console.log("something went wrong");
       }
