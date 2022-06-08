@@ -9,10 +9,9 @@ const APIKEY = "CCK1IY5CF565MMF9";
 function CompanyDetails({ ticker, setTicker }) {
   //set the state first
     const [state, setState] = useContext(stateContext);
-    console.log('ticker: ');
-    console.log(ticker);
   
     const URL = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${APIKEY}`;
+    const valURL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${APIKEY}`;
     const [overview, setOverview] = useState({});
     const [loading, setLoading] = useState("");
     const [prevTicker, setPrevTicker] = useState("");
@@ -22,8 +21,12 @@ function CompanyDetails({ ticker, setTicker }) {
         let res = await fetch(URL);
         let data = await res.json();
 
-        setState({ ...state, selectedTicker: ticker });
-        setOverview(data);
+        let valres = await fetch(valURL);
+        let valdata = await valres.json();
+        let close = valdata["Time Series (Daily)"][Object.keys(valdata["Time Series (Daily)"])[0]]["4. close"];
+        setState({ ...state, selectedTicker: ticker, close: close });
+ 
+        setOverview({...data, close: close});
         setLoading("ran");
       } catch (error) {
         alert("No details found");
@@ -37,7 +40,6 @@ function CompanyDetails({ ticker, setTicker }) {
       setPrevTicker(ticker);
       //get company data function
       getStockInfo();
-      // setOverview(overview);
       setLoading("loading");
     }
 
@@ -62,10 +64,9 @@ function CompanyDetails({ ticker, setTicker }) {
         <p>
           <b>Description</b>: {overview.Description}
         </p>
-        <p>
-          <b>Country</b>: {overview.Country}
+        <p id="close">
+          <b>Current</b>: {overview.close}
         </p>
-        Where is my damn chart
         <StockChart ticker={ticker}/>
       </div>,
     ];
@@ -100,8 +101,6 @@ function CompanyDetails({ ticker, setTicker }) {
                 </div>
 
                 <div>{arr}</div>
-                {/* TODO still working on the details section showing the 52 week high and low and that kind of stuff */}
-                {/* <DetailsModal ticker={ticker} /> */}
               </div>
             </div>
           </div>

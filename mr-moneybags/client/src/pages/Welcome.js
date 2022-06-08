@@ -1,7 +1,6 @@
 //page for creating and updating portfolio
 import React from "react";
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
-// import StockTable from "../components/userPortTable";
 import info from "../components/newapi.json";
 
 const Welcome = () => {
@@ -62,11 +61,6 @@ const Welcome = () => {
           </Carousel.Item>
         </Carousel>
       </Col>
-
-
-      <Container>
-        {/* <StockTable/> */}
-      </Container>
 
     </>
   );

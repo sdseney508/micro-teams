@@ -38,7 +38,7 @@ export const QUERY_PORTFOLIOS = gql`
 // Query for a single portfolio
 export const QUERY_SINGLE_PORTFOLIO = gql`
 query getPortfolio($_id: ID!) {
-    getPortfolio(portfolioName: $portfolioName) {
+    getPortfolio(_id: $ID) {
             portfolioName
             stocks {
                 name 

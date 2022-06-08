@@ -33,7 +33,7 @@ ChartJS.register(
 
 function StockChart(props) {
   const [state, setState] = useContext(stateContext);
-  console.log(props.ticker);
+
   //this must be set by searchBar.  if you dont go to searchBar, it will be undefined.  Need to check with Grayden if this is the case.
 
   //need to use the time_series_daily API and not overview to get the daily values.  then i'll need to use the object.keys thing that Grayden showed us to get the dates and values.  the dates will be the rows and then we'll map to the close values.
@@ -42,7 +42,7 @@ function StockChart(props) {
   async function fetchData() {
     const res = await fetch(URL);
     const data = await res.json()
- 
+    console.log(data);
       const dates = Object.keys(data["Time Series (Daily)"]);
       
       const prices = dates.map((date) => data["Time Series (Daily)"][date]["4. close"]);

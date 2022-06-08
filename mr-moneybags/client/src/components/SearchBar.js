@@ -49,6 +49,7 @@ function SearchBar() {
         <input
           placeholder="Company Name / Search"
           type="text"
+          id="company"
           value={company}
           onChange={(event) => setCompany(event.target.value)}
         />

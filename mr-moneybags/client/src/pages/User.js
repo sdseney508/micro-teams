@@ -17,6 +17,7 @@ import $ from "jquery";
 import { useMutation } from "@apollo/client";
 // Importing mutations for "mutations.js"
 import { ADD_PORTFOLIO } from "../utils/mutations";
+import StockTable from "../components/dead_to_me";
 
 const User = () => {
   const { loading, error, data } = useQuery(QUERY_ME, {
@@ -25,10 +26,7 @@ const User = () => {
   console.log(data?.me);
   const [state, setState] = useContext(stateContext);
   const [ addPort, {error: error2}] = useMutation(ADD_PORTFOLIO);
-  // const [portName, setPortName] = useState('');
-  // if (data) {
-  //   console.log(data?.me?.portfolios[0].portfolioName);
-  // }
+
 
   const goTo = useNavigate();
   const userinfo = data?.me || {};
@@ -39,7 +37,8 @@ const User = () => {
   if (!token) {
     return false;
   }
-  const createPort = async () => {
+  const createPort = async (event) => {
+    event.preventDefault();
     if (!$("#port-name").val()) {
       alert("Please enter a portfolio name");
       return;
@@ -47,19 +46,15 @@ const User = () => {
     try {
       let port_name = $("#port-name").val();
       const { data } = await addPort({
-
         variables: {portfolioName: port_name, token: token},
         })
-        console.log(data);
+    
         const p_id = Object.values(data?.addPortfolio?._id).join('');
         setState({...state, portfolio: p_id});
 
         goTo("/createPort", {state});
       if(!data) {
        console.log("something went wrong");
-      }
-      if (!data) {
-        console.log("something went wrong");
       }
     } catch (err) {
       console.log(err);
@@ -68,10 +63,14 @@ const User = () => {
   };
 
   const handleClick = (event) => {
+      event.preventDefault();
       const parentID = event.target.id;
+      console.log(parentID);
+      
       setState({...state, portfolio: parentID});
+      console.log(state.portfolio);
       console.log(state);
-      goTo("/createPort", {state});
+      goTo("/createPort", state.portfolio);
   };
   // async function carouselData() {
   //   const url = `https://api.marketaux.com/v1/news/all?symbols=TSLA%2CAMZN%2CMSFT&filter_entities=true&language=en&api_token=lBI78Ixv5YPqe77AkvXjJwQ35JSh7yxjGeTKTKQw`;
@@ -211,6 +210,7 @@ const User = () => {
           </Col>
         </Row>
       </Container>
+     
     </>
   );
 };

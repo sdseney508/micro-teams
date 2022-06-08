@@ -68,7 +68,7 @@ function StockTable() {
         // console.log(r["Time Series (Daily)"]);
         // setRowData(r)});
       })
-    // setRowData(rowD)
+    setRowData(rowD)
   }, []);
 
   // Example using Grid's API
