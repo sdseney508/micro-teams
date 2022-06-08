@@ -2,8 +2,8 @@
 
 import React, { useState, useContext } from "react";
 
-import Avatar from "avataaars";
-import { generateRandomAvatarOptions } from "../components/avatar";
+// import Avatar from "avataaars";
+// import { generateRandomAvatarOptions } from "../components/avatar";
 
 import { Container, Row, Col, Carousel, Form, Button } from "react-bootstrap";
 import { stateContext } from "../App";
@@ -36,14 +36,29 @@ const User = () => {
   if (!token) {
     return false;
   }
-const createPort = () => {
+const createPort = async () => {
     //TODO need to add the mutation to create the portfolio in the database
     if (!$("#port-name").val()) {
       alert("Please enter a portfolio name");
       return;
     }
-    goTo("/createPort");
-    console.log("trying to create a portfolio");
+    try {
+      let port_name = $("#port-name").val();
+      console.log(port_name);
+      const { data } = await addPort({
+        variables: {portfolioName: port_name, token: token},
+        })
+        console.log(userinfo);
+      goTo("/createPort");
+
+      console.log("trying to create a portfolio");
+
+      if(!data) {
+       console.log("something went wrong");
+      }
+    } catch (err) {
+      console.log(err);
+    }
     
   };
 
@@ -71,11 +86,11 @@ const createPort = () => {
 
               <Container>
                 <>
-                  <Avatar
+                  {/* <Avatar
                     style={{ width: "200px", height: "200px" }}
                     avatarStyle="Circle"
                     {...generateRandomAvatarOptions()}
-                  />
+                  /> */}
                 </>
               </Container>
               <p className="lead">
