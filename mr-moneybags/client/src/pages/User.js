@@ -22,18 +22,15 @@ const User = () => {
   const { loading, error, data } = useQuery(QUERY_ME, {
     variables: { token: localStorage.getItem("api-token") },
   });
-
-
+  console.log(data?.me);
   const [state, setState] = useContext(stateContext);
   const [ addPort, {error: error2}] = useMutation(ADD_PORTFOLIO);
-  const [portName, setPortName] = useState('');
-  if (data) {
-    console.log(data.me.portfolios[0].portfolioName);
-  }
-
+  // const [portName, setPortName] = useState('');
+  // if (data) {
+  //   console.log(data?.me?.portfolios[0].portfolioName);
+  // }
 
   const goTo = useNavigate();
-
   const userinfo = data?.me || {};
 
   console.log(userinfo);
@@ -70,6 +67,12 @@ const User = () => {
 
   };
 
+  const handleClick = (event) => {
+      const parentID = event.target.id;
+      setState({...state, portfolio: parentID});
+      console.log(state);
+      goTo("/createPort", {state});
+  };
   // async function carouselData() {
   //   const url = `https://api.marketaux.com/v1/news/all?symbols=TSLA%2CAMZN%2CMSFT&filter_entities=true&language=en&api_token=lBI78Ixv5YPqe77AkvXjJwQ35JSh7yxjGeTKTKQw`;
   //   const res = await fetch(url);
@@ -83,14 +86,11 @@ const User = () => {
   // carouselData();
 
 
-  const portfolioList = data?.getPortfolios || [];
+  // const portfolioList = data?.getPortfolios || [];
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-  };
-
-  
-
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  // };
 
   return (
     <>
@@ -126,7 +126,8 @@ const User = () => {
                     {
                     data ?
                       data.me.portfolios.map((portfolio) => (
-                        <Dropdown.Item onClick={() => goTo(`/createPort/`, )} key={portfolio._id} value={portfolio.portfolioName}>
+                        <Dropdown.Item onClick={(event) => handleClick(event)} id={portfolio._id}
+                          key={portfolio.portfolioName}>
                           {portfolio.portfolioName}
                         </Dropdown.Item>
                       ))
@@ -137,7 +138,7 @@ const User = () => {
 
             </Container>
           </Col>
-
+          
           {/* right hand column */}
           <Col sm={8} style={{ textAlign: "center" }}>
             <Form.Group as={Row} className="mb-3">
