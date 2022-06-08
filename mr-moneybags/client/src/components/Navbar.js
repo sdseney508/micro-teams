@@ -28,7 +28,7 @@ const AppNavbar = () => {
                   <Nav.Link as={Link} to='/createport'>
                     Add Portfolio
                   </Nav.Link>
-                  <NavDropdown title="Your Portfolios" id="basic-nav-dropdown">
+                  {/* <NavDropdown title="Your Portfolios" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">
                     </NavDropdown.Item>
       
@@ -44,7 +44,7 @@ const AppNavbar = () => {
                     <NavDropdown.Item href="#action/3.3">
                       portfolio 4
                     </NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown> */}
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
               ) : (

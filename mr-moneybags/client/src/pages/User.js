@@ -2,13 +2,15 @@
 import React, { useState, useContext } from "react";
 // import Avatar from "avataaars";
 // import { generateRandomAvatarOptions } from "../components/avatar";
-import { Container, Row, Col, Carousel, Form, Button } from "react-bootstrap";
+
+import { Container, Row, Col, Carousel, Form, Button, Dropdown } from "react-bootstrap";
+
 import { stateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
 import "./user.css";
 import newsinfo from "../components/newapi.json";
-import { QUERY_ME } from "../utils/queries";
+import { QUERY_ME, getPortfolios } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import $ from "jquery";
 // Import "useMutation" hook
@@ -21,9 +23,15 @@ const User = () => {
     variables: { token: localStorage.getItem("api-token") },
   });
 
+
   const [state, setState] = useContext(stateContext);
   const [ addPort, {error: error2}] = useMutation(ADD_PORTFOLIO);
   const [portName, setPortName] = useState('');
+  if (data) {
+    console.log(data.me.portfolios[0].portfolioName);
+  }
+
+
   const goTo = useNavigate();
 
   const userinfo = data?.me || {};
@@ -34,16 +42,15 @@ const User = () => {
   if (!token) {
     return false;
   }
-const createPort = async () => {
-    //TODO need to add the mutation to create the portfolio in the database
+  const createPort = async () => {
     if (!$("#port-name").val()) {
       alert("Please enter a portfolio name");
       return;
     }
     try {
       let port_name = $("#port-name").val();
-      // console.log(port_name);
       const { data } = await addPort({
+
         variables: {portfolioName: port_name, token: token},
         })
         console.log(data);
@@ -54,10 +61,13 @@ const createPort = async () => {
       if(!data) {
        console.log("something went wrong");
       }
+      if (!data) {
+        console.log("something went wrong");
+      }
     } catch (err) {
       console.log(err);
     }
-    
+
   };
 
   // async function carouselData() {
@@ -71,6 +81,16 @@ const createPort = async () => {
   //   return carousel;
   // }
   // carouselData();
+
+
+  const portfolioList = data?.getPortfolios || [];
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+  };
+
+  
+
 
   return (
     <>
@@ -97,41 +117,47 @@ const createPort = async () => {
               <hr className="my-4"></hr>
               <p></p>
             </div>
+            <Container>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  View Portfolios
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    {
+                    data ?
+                      data.me.portfolios.map((portfolio) => (
+                        <Dropdown.Item onClick={() => goTo(`/createPort/`, )} key={portfolio._id} value={portfolio.portfolioName}>
+                          {portfolio.portfolioName}
+                        </Dropdown.Item>
+                      ))
+                      : null
+                    }
+                </Dropdown.Menu>
+              </Dropdown>
+
+            </Container>
           </Col>
 
           {/* right hand column */}
           <Col sm={8} style={{ textAlign: "center" }}>
             <Form.Group as={Row} className="mb-3">
               <Button
-              variant="primary"
-              size="lg"
-              id="create-port-btn"
-              className="cst-button"
-              onClick={(event) => createPort(event)}
-              style={{ textAlign: "center" }}
-            >
-              Create a Portofolio
-            </Button>
+                variant="primary"
+                size="lg"
+                id="create-port-btn"
+                className="cst-button"
+                onClick={(event) => createPort(event)}
+                style={{ textAlign: "center" }}
+              >
+                Create a Portofolio
+              </Button>
               <Form.Control
                 type="text"
                 id="port-name"
                 placeholder="New Portfolio Name"
               />
             </Form.Group>
-            <Container>
-              <Form.Group className="mb-3">
-                {/* DATA RETURNS UNDEFINED */}
-                {/* {data.me.portfolios.length > 0 ?
-                  <>
-                    <Form.Label className="">Select Portfolio</Form.Label>
-                    <Form.Select>
-                    </Form.Select>
-                  </>
-                  :
-                  <p>You have no portfolios</p>
-                } */}
-              </Form.Group>
-            </Container>
+
             <div style={{ color: "black" }}>
               <div className="container-fluid">
                 <div className="row">
