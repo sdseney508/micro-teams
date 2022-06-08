@@ -7,7 +7,7 @@ import $ from "jquery";
 import CompanyDetails from "../components/CompanyDetails";
 
 // Import "useMutation" hook
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 // Importing mutations for "mutations.js"
 import { UPDATE_PORTFOLIO } from "../utils/mutations";
