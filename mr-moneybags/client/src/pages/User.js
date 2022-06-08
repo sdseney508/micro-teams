@@ -1,10 +1,7 @@
 //page with avatar image, portfoluo summary, stock news of the day
-
 import React, { useState, useContext } from "react";
-
 // import Avatar from "avataaars";
 // import { generateRandomAvatarOptions } from "../components/avatar";
-
 import { Container, Row, Col, Carousel, Form, Button } from "react-bootstrap";
 import { stateContext } from "../App";
 import { useNavigate } from "react-router-dom";
@@ -24,8 +21,9 @@ const User = () => {
     variables: { token: localStorage.getItem("api-token") },
   });
 
+  const [state, setState] = useContext(stateContext);
   const [ addPort, {error: error2}] = useMutation(ADD_PORTFOLIO);
-
+  const [portName, setPortName] = useState('');
   const goTo = useNavigate();
 
   const userinfo = data?.me || {};
@@ -44,15 +42,15 @@ const createPort = async () => {
     }
     try {
       let port_name = $("#port-name").val();
-      console.log(port_name);
+      // console.log(port_name);
       const { data } = await addPort({
         variables: {portfolioName: port_name, token: token},
         })
-        console.log(userinfo);
-      goTo("/createPort");
+        console.log(data);
+        const p_id = Object.values(data?.addPortfolio?._id).join('');
+        setState({...state, portfolio: p_id});
 
-      console.log("trying to create a portfolio");
-
+        goTo("/createPort", {state});
       if(!data) {
        console.log("something went wrong");
       }

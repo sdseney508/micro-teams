@@ -26,6 +26,7 @@ export const ADD_USER = gql`
 export const ADD_PORTFOLIO = gql`
     mutation addPortfolio($portfolioName: String!) {
         addPortfolio(portfolioName: $portfolioName) {
+            _id
             portfolioName
         }
     }

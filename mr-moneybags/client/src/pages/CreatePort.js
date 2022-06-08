@@ -1,5 +1,6 @@
 //page for creating and updating portfolio
 import React, { useState, useContext } from "react";
+import { stateContext } from "../App";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import SearchBar from "../components/SearchBar";
 import $ from "jquery";
@@ -11,27 +12,36 @@ import { useMutation } from "@apollo/client";
 // Importing mutations for "mutations.js"
 import { UPDATE_PORTFOLIO } from "../utils/mutations";
 
-const CreatePort = () => {
+const CreatePort = (id) => {
+  const [state, setState] = useContext(stateContext);
+  console.log(state.portfolio);
   const [ticker, setTicker] = useState();
   const shareprice = 10;
-  // const [ addToPort, {error: error2}] = useMutation(UPDATE_PORTFOLIO);
+  const [ putInPort, {error: error2}] = useMutation(UPDATE_PORTFOLIO);
 
-  const addToPort = (event) => {
+  const addToPort = async (event) => {
     event.preventDefault();
     if(!($('#amount').val() && $('#symbol').html())) {
       alert("Please enter both Stock Ticker and Number of Shares");
       return;
     }
+    try{
+      
+      //TODO needs to execute the update_port mutation
+      // const money = data?.amtleft;
+      const { data } = await putInPort({
+        variables: {_id: state.portfolio, stock: {name: $('#symbol').html(), purchasePrice: 15, shares: parseInt($('#amount').val())}},
+      })
+      console.log(data);
+      // const amtleft = amountleft - parseInt($('#amount').val()) * shareprice;
+      // setAmountLeft(amtleft);
+      // setTicker(event.target.parentNode.id)
+      // const portObject = $('#symbol').html();
+    }
 
-    //TODO needs to execute the update_port mutation
-    // const money = data?.amtleft;
-    console.log($('#amount').val());
-    const amtleft = amountleft - parseInt($('#amount').val()) * shareprice;
-    setAmountLeft(amtleft);
-    setTicker(event.target.parentNode.id)
-    const portObject = $('#symbol').html();
-
-    
+    catch(err) {
+      console.log(err);
+    }
   }
 
   const removeFromPort = (event) => {
