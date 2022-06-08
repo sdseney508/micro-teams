@@ -7,7 +7,7 @@ import $ from "jquery";
 import CompanyDetails from "../components/CompanyDetails";
 
 // Import "useMutation" hook
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 // Importing mutations for "mutations.js"
 import { UPDATE_PORTFOLIO } from "../utils/mutations";
@@ -17,20 +17,20 @@ const CreatePort = () => {
   console.log(state.portfolio);
   const [ticker, setTicker] = useState();
   const shareprice = 10;
-  const [ putInPort, {error: error2}] = useMutation(UPDATE_PORTFOLIO);
+  const [putInPort, { error: error2 }] = useMutation(UPDATE_PORTFOLIO);
 
   const addToPort = async (event) => {
     event.preventDefault();
-    if(!($('#amount').val() && $('#symbol').html())) {
+    if (!($('#amount').val() && $('#symbol').html())) {
       alert("Please enter both Stock Ticker and Number of Shares");
       return;
     }
-    try{
-      
+    try {
+
       //TODO needs to execute the update_port mutation
       // const money = data?.amtleft;
       const { data } = await putInPort({
-        variables: {_id: state.portfolio, stock: {name: $('#symbol').html(), purchasePrice: 15, shares: parseInt($('#amount').val())}},
+        variables: { _id: state.portfolio, stock: { name: $('#symbol').html(), purchasePrice: 15, shares: parseInt($('#amount').val()) } },
       })
       console.log(data);
       // const amtleft = amountleft - parseInt($('#amount').val()) * shareprice;
@@ -39,7 +39,7 @@ const CreatePort = () => {
       // const portObject = $('#symbol').html();
     }
 
-    catch(err) {
+    catch (err) {
       console.log(err);
     }
   }
@@ -53,6 +53,8 @@ const CreatePort = () => {
     setAmountLeft(amtleft);
     // console.log(money);
   }
+
+  
 
   const [amountleft, setAmountLeft] = useState(10000);
 
@@ -73,6 +75,11 @@ const CreatePort = () => {
           )} */}
         </Row>
         <Row>
+
+          <Col>
+            <h1 className="display-4">Edit Your Portfolio</h1>
+          </Col>
+
           <Col sm={10}>
             <Button
               variant="primary"
