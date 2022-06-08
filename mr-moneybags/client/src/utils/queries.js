@@ -20,7 +20,7 @@ export const QUERY_ME = gql`
     }
 `;
 
-// Query for ALL portfolios
+// Query for ALL portfolios but this should query the user not portfolios
 export const QUERY_PORTFOLIOS = gql`
     query getPortfolios($portfolioName: String!) {
         getPortfolios(portfolioName: $portfolioName) {

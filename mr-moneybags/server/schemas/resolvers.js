@@ -51,19 +51,19 @@ const resolvers = {
 
     // Mutations to handle portfolio actions
     addPortfolio: async (parent, args, context) => {
-      if (context.user) {
+      // if (context.user) {
         const portfolio = await Portfolios.create({
           portfolioName: args.portfolioName
         });
-
+      
         const user = await Users.findOneAndUpdate(
           {_id: context.user._id},
           {$addToSet: { portfolios: portfolio._id }},
           {new: true}
         );
-        return user;
-      }
-      throw new AuthenticationError('You must be logged in!');
+        return portfolio;
+      // }
+      // throw new AuthenticationError('You must be logged in!');
     },
 
     // Mutation for updating portfolios with the stock information
